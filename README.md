@@ -1,6 +1,6 @@
 <!-- All-contributors badge -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)<!-- Travis badge -->
-[![Build Status](https://travis-ci.org/louiCoder/Pamoja-React-Native-App.svg?branch=master)](https://travis-ci.org/louiCoder/Pamoja-React-Native-App)<!-- Coveralls badge -->
+[![Build Status](https://travis-ci.org/louiCoder/pamoja-mobile.svg?branch=master)](https://travis-ci.org/louiCoder/pamoja-mobile)<!-- Coveralls badge -->
 [![Coverage Status](https://coveralls.io/repos/github/louiCoder/Pamoja-React-Native-App/badge.svg?branch=master)](https://coveralls.io/github/louiCoder/Pamoja-React-Native-App?branch=master)
 
 # :iphone:Pamoja Android and iOS client apps
