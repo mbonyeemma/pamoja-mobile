@@ -1,0 +1,35 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "louiCoder",
+      "name": "Musanje Louis Michael",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/32771081?v=4",
+      "profile": "https://github.com/louiCoder",
+      "contributions": [
+        "code",
+        "question",
+        "maintenance",
+        "projectManagement"
+      ]
+    },
+    {
+      "login": "Nsengiyunva",
+      "name": "King Isaac Nsengiyunva",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/4712414?v=4",
+      "profile": "https://github.com/Nsengiyunva",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "Pamoja-Android",
+  "projectOwner": "louiCoder",
+  "repoType": "github",
+  "repoHost": "https://github.com"
+}
