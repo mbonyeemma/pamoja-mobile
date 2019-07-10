@@ -16,6 +16,7 @@ import Card from '../../components/Card/Card';
 import Styles from './HomeStyles';
 import TransactionDetail from './TransactionDetails';
 import Modal from '../../components/Modal/Modal';
+import AirtimeRecharge from './AirtimeRecharge/AirtimeRecharge';
 
 const { width } = Dimensions.get('screen');
 
@@ -62,6 +63,15 @@ export default class Home extends Component {
           modalProps: {
             height: '80%',
             component: this.deposit(),
+          },
+          isModalShowing: true
+        });
+        break;
+      case 'Airtime':
+        newProps = this.setState({
+          modalProps: {
+            height: '80%',
+            component: <AirtimeRecharge />,
           },
           isModalShowing: true
         });
@@ -152,6 +162,7 @@ export default class Home extends Component {
             Pay Bills
           </Text>
           <BottomCards
+            clicked={e => this.renderModal(e)}
             style={{
               position: 'absolute',
               height: '40%',
