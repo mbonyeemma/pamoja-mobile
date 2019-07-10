@@ -10,6 +10,7 @@ import AccountDetails from '../screens/AccountDetails/JointAccount';
 
 const navigator = createStackNavigator(
   {
+    BottomMenu: BottomMenuScreen,
     Splash: SplashScreen,
     Guide: GuideScreens,
     AccountDetails,
@@ -17,7 +18,6 @@ const navigator = createStackNavigator(
     EditAccount: EditAccountScreen,
     AccountDetails,
     CreateAccount,
-    BottomMenu: BottomMenuScreen,
     Verification,
     AccountDetails
   },
