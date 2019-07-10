@@ -14,7 +14,7 @@ const modal = ({
   ...rest
 }) => {
   let newStyles = {};
-  if (fullWidth)
+  if (fullWidth) {
     newStyles = {
       ...styles,
       marginLeft: -18,
@@ -23,6 +23,7 @@ const modal = ({
       borderBottomLeftRadius: 0,
       borderBottomRightRadius: 0
     };
+  }
 
   return (
     <View>
@@ -47,7 +48,7 @@ const modal = ({
                 {rest.title || ''}
               </Text>
               {showCloseButton && (
-                <Icon name='md-close' color='white' size={20} onPress={close} />
+                <Icon name="md-close" color="white" size={20} onPress={close} />
               )}
             </View>
           ) : null}
