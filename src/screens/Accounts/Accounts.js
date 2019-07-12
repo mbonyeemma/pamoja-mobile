@@ -84,7 +84,7 @@ class Accounts extends Component {
         <Image
           source={Profile}
           style={{ width: '98%', height: '98%', borderRadius: 50 }}
-          resizeMode='cover'
+          resizeMode="cover"
         />
       </View>
     </View>
@@ -137,9 +137,9 @@ class Accounts extends Component {
           onPress={() => this.props.navigation.navigate('CreateAccount')}
         >
           <Icon
-            name='md-add'
+            name="md-add"
             size={this.width > 320 ? 25 : 15}
-            color='white'
+            color="white"
             style={{ padding: 5 }}
           />
         </TouchableOpacity>
@@ -153,39 +153,50 @@ class Accounts extends Component {
     </View>
   );
 
-  navigateToAccountDetails = () =>
-    this.props.navigation.navigate('AccountDetails');
+  navigateToAccountDetails = ({ navigation } = this.props) => navigation.navigate('AccountDetails');
 
-	render () {
-		return (
-			<View style={{ display: 'flex', height: '100%', backgroundColor: 'white' }}>
-				<StatusBar backgroundColor="blue" />
-				<View style={{ height: '15%' }}>
-					<Header topHeader={this.topHeaderComponent} bottomHeader={this.bottomHeaderComponent} />
-				</View>
-				<View style={{ backgroundColor: '#eee', display: 'flex' }}>
-					<ScrollView style={{ display: 'flex', height: '85%', backgroundColor: 'white' }}>
-						{this.cards.map((item, ind) => (
-							<TouchableOpacity onPress={this.navigateToAccountDetails} key={Math.random()}>
-								<AccountCard
-									swipeable
-									onSwipeFromLeft={this.renderActions}
-									accountName={item.accountName}
-									accountType={item.accountType}
-									totalMembers={item.totalMembers}
-									time={item.time}
-									amount={item.amount}
-									renderIcons={this.renderActions}
-									navigation={this.props.navigation}
-									style={{ ...item.style, height: 130, marginTop: ind === 0 ? '3%' : 0 }}
-								/>
-							</TouchableOpacity>
-						))}
-					</ScrollView>
-				</View>
-			</View>
-		);
-	}
+  render() {
+    const { navigation } = this.props;
+    return (
+      <View
+        style={{ display: 'flex', height: '100%', backgroundColor: 'white' }}
+      >
+        <StatusBar backgroundColor="blue" />
+        <View style={{ height: '15%' }}>
+          <Header
+            topHeader={this.topHeaderComponent}
+            bottomHeader={this.bottomHeaderComponent}
+          />
+        </View>
+        <View style={{ backgroundColor: '#eee', display: 'flex' }}>
+          <ScrollView
+            style={{ display: 'flex', height: '85%', backgroundColor: 'white' }}
+          >
+            {this.cards.map((item, ind) => (
+              // <TouchableOpacity onPress={this.navigateToAccountDetails} key={Math.random()}>
+              <AccountCard
+                swipeable
+                onSwipeFromLeft={this.renderActions}
+                accountName={item.accountName}
+                accountType={item.accountType}
+                totalMembers={item.totalMembers}
+                time={item.time}
+                amount={item.amount}
+                renderIcons={this.renderActions}
+                navigation={navigation}
+                style={{
+                  ...item.style,
+                  height: 130,
+                  marginTop: ind === 0 ? '3%' : 0
+                }}
+              />
+              // </TouchableOpacity>
+            ))}
+          </ScrollView>
+        </View>
+      </View>
+    );
+  }
 }
 
 export default Accounts;

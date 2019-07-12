@@ -17,15 +17,17 @@ import Styles from './HomeStyles';
 import TransactionDetail from './TransactionDetails';
 import Modal from '../../components/Modal/Modal';
 import AirtimeRecharge from './AirtimeRecharge/AirtimeRecharge';
+import ScrollableCards from '../../components/ScrollableCards/ScrollableCards';
 
-const { width } = Dimensions.get('screen');
+const { width, height } = Dimensions.get('screen');
 
 export default class Home extends Component {
   state = {
     modalProps: {
       height: '20%',
       component: null,
-      modalProps: true
+      modalProps: true,
+      prepaid: false
     },
     isModalShowing: false
   };
@@ -46,6 +48,7 @@ export default class Home extends Component {
 
   renderModal = (title) => {
     let newProps = null;
+    const { prepaid } = this.state;
     // eslint-disable-next-line default-case
     switch (title) {
       case 'Withdraw':
@@ -62,7 +65,7 @@ export default class Home extends Component {
         newProps = this.setState({
           modalProps: {
             height: '80%',
-            component: this.deposit(),
+            component: this.deposit()
           },
           isModalShowing: true
         });
@@ -70,19 +73,29 @@ export default class Home extends Component {
       case 'Airtime':
         newProps = this.setState({
           modalProps: {
-            height: '80%',
-            component: <AirtimeRecharge />,
+            height: height >= 720 ? '80%' : '90%',
+            component: this.renderAirtimeRechargeModal()
           },
           isModalShowing: true
         });
         break;
     }
     return newProps;
+  };
+
+  setPaymentMethod = () => {
+    this.setState({
+      prepaid: false
+    });
   }
 
-  withdraw = () => (<Text>This is withdraw</Text>)
+  renderAirtimeRechargeModal = () => (
+    <AirtimeRecharge prePaid={this.state.prepaid} setPost={() => this.setState({ prepaid: false })} setPre={() => this.setState({ prepaid: true })} />
+  )
 
-  deposit = () => (<Text>This is deposit</Text>)
+  withdraw = () => <Text>This is withdraw</Text>;
+
+  deposit = () => <Text>This is deposit</Text>;
 
   render() {
     const { isModalShowing, modalProps } = this.state;
@@ -91,7 +104,7 @@ export default class Home extends Component {
         style={{
           flex: 1,
           display: 'flex',
-          backgroundColor: 'rgb(240, 240, 240)'
+          // backgroundColor: "rgb(240, 240, 240)"
         }}
       >
         <Modal
@@ -117,12 +130,13 @@ export default class Home extends Component {
             width: '100%'
           }}
         >
-          <Card
+          {/* <Card
             style={{
               height: width > 320 ? 140 : 110,
               backgroundColor: 'black'
             }}
-          />
+          /> */}
+          <ScrollableCards buttonTopHeight={height >= 720 ? 140 : 130} />
         </View>
 
         <View
@@ -132,22 +146,23 @@ export default class Home extends Component {
             borderColor: 'red',
             flexDirection: 'row',
             justifyContent: 'center',
-            marginTop: '25%',
+            marginTop: height >= 720 ? 70 : 100,
             borderBottomColor: '#ccc',
             borderBottomWidth: 1
           }}
         >
+          {/* <Text style={{ fontSize: 60, color: 'rgba(0,0,0,.2)' }}>&#183;</Text>
           <Text style={{ fontSize: 60, color: 'rgba(0,0,0,.2)' }}>&#183;</Text>
-          <Text style={{ fontSize: 60, color: 'rgba(0,0,0,.2)' }}>&#183;</Text>
-          <Text style={{ fontSize: 60, color: 'green' }}>&#183;</Text>
+        <Text style={{ fontSize: 60, color: 'green' }}>&#183;</Text> */}
         </View>
 
         <View
           style={{
             marginTop: '1%',
-            height: '18%',
+            height: 90,
             borderBottomColor: '#ccc',
-            borderBottomWidth: 1
+            borderBottomWidth: 1,
+            // borderWidth: 1
           }}
         >
           <Text
@@ -156,18 +171,22 @@ export default class Home extends Component {
               marginLeft: '6%',
               fontSize: 18,
               fontWeight: 'bold',
-              color: 'rgba(0,0,0,.5)'
+              color: 'rgba(0,0,0,.5)',
+              top: -5
             }}
           >
             Pay Bills
           </Text>
           <BottomCards
             clicked={e => this.renderModal(e)}
-            style={{
-              position: 'absolute',
-              height: '40%',
-              marginTop: width > 320 ? '-5%' : '-20%'
-            }}
+            style={
+              {
+                // position: "absolute",
+                // height: "40%",
+                // marginTop: width > 320 ? "-5%" : "-20%"
+                // top: 5, borderWidth: 1
+              }
+            }
           />
         </View>
 
@@ -212,16 +231,18 @@ export default class Home extends Component {
               </Text>
             </TouchableOpacity>
           </View>
-          <ScrollView style={{ marginTop: '-5%' }}>
+          <ScrollView style={{}}>
             {fixture.map((item, index) => (
-              <TransactionDetail
-                key={Math.random()}
-                status={item.status}
-                description={item.description}
-                time={item.time}
-                amount={item.amount}
-                first={index === 0}
-              />
+              <View style={{ height: 60 }} key={Math.random()}>
+                <TransactionDetail
+                  // key={Math.random()}
+                  status={item.status}
+                  description={item.description}
+                  time={item.time}
+                  amount={item.amount}
+                  first={index === 0}
+                />
+              </View>
             ))}
           </ScrollView>
         </View>

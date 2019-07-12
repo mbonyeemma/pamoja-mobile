@@ -9,13 +9,13 @@ export default ({ clicked, styles }) => (
       <View
         key={Math.random()}
         style={{
-          alignSelf: 'center',
+          // alignSelf: 'center',
           borderRadius: 10,
           marginLeft: 15,
           justifyContent: 'center',
           alignItems: 'center',
           width: 60,
-          height: '100%'
+          height: 60
         }}
       >
         <Icon
