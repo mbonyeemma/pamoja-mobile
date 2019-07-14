@@ -8,7 +8,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     // justifyContent: 'center',
     marginBottom: '3%',
-    // backgroundColor: 'white',
+    backgroundColor: 'white',
     padding: 5
   },
   actNameAndTypeContainer: {
