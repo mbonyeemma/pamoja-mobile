@@ -37,9 +37,10 @@ const TransactionDetails = ({
       style={{
         width: '100%',
         flexDirection: 'row',
-        height: width > 320 ? 60 : '25%',
-        marginTop: first ? 0 : 4,
-        flex: 1
+        height: 60,
+        // top: first ? 0 : 10,
+        flex: 1, 
+        // borderWidth: 1
       }}
     >
       <View style={{ width: '20%', height: '100%', justifyContent: 'center' }}>
@@ -51,7 +52,7 @@ const TransactionDetails = ({
           width: '40%',
           height: '100%',
           justifyContent: 'center',
-          borderBottomColor: '#eee',
+          borderBottomColor: '#aaa',
           borderBottomWidth: 1
         }}
       >
@@ -76,7 +77,7 @@ const TransactionDetails = ({
           alignItems: 'center',
           flexGrow: 1,
           justifyContent: 'flex-end',
-          borderBottomColor: '#eee',
+          borderBottomColor: '#aaa',
           borderBottomWidth: 1
         }}
       >

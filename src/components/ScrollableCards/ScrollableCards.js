@@ -6,7 +6,10 @@ const { width } = Dimensions.get('window');
 
 export default class PagedScroll extends React.Component {
   state = {
-    counter: 0
+    counter: 0,
+    // offset: 0
+    // forward: true,
+    // backwards: false
   };
 
   scroll = (e) => {
@@ -22,24 +25,33 @@ export default class PagedScroll extends React.Component {
   };
 
   render() {
+    // console.log(this.state)
     const {
       items = [
-        { style: { backgroundColor: 'white' } },
+        { style: { backgroundColor: 'black' } },
         { style: { backgroundColor: 'red' } },
+        { style: { backgroundColor: 'white' } },
         { style: { backgroundColor: 'green' } }
       ],
       styles,
-      showProgress = true
+      showProgress = true,
+      buttonTopHeight
     } = this.props;
     const { counter } = this.state;
     return (
       <>
-        <View style={{ height: width > 320 ? '30%' : '30%' }}>
+        <View
+          style={{
+            height: width > 320 ? 150 : 140,
+            paddingBottom: '1%',
+            width
+          }}
+        >
           <ScrollView
             style={[
               {
-                width: '100%',
-                position: 'absolute'
+                width: '100%'
+                // position: 'absolute'
               },
               styles
             ]}
@@ -47,6 +59,7 @@ export default class PagedScroll extends React.Component {
             pagingEnabled
             showsHorizontalScrollIndicator={false}
             onScroll={e => this.scroll(e)}
+            // scrollEventThrottle={1500}
           >
             {items.map((el) => {
               const white = el.style.backgroundColor === 'white';
@@ -63,19 +76,19 @@ export default class PagedScroll extends React.Component {
                   <View
                     style={{
                       width: '100%',
-                      height: '100%',
-                      backgroundColor: 'white'
+                      height: '100%'
+                      // backgroundColor: 'white'
                     }}
                   >
                     {white ? (
                       <Card
-                        style={[{ height: width > 320 ? 50 : 120 }, el.style]}
+                        style={[{ height: width > 320 ? 130 : 120 }, el.style]}
                         whiteCard
                       />
                     ) : (
                       <Card
                         style={[
-                          { height: width > 320 ? 50 : 120 },
+                          { height: width > 320 ? 130 : 120 },
                           el.style || null
                         ]}
                       />
@@ -94,7 +107,9 @@ export default class PagedScroll extends React.Component {
               alignItems: 'center',
               height: 2,
               borderColor: 'brown',
-              marginTop: width > 320 ? -50 : -20
+              top: buttonTopHeight,
+              position: 'absolute',
+              width: '100%'
             }}
           >
             {items.map((_, ind) => (

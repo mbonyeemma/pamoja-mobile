@@ -8,21 +8,21 @@ export default StyleSheet.create({
     alignItems: 'center',
     // justifyContent: 'center',
     marginBottom: '3%',
-    backgroundColor: 'white',
+    // backgroundColor: 'white',
     padding: 5
   },
   actNameAndTypeContainer: {
     width: '90%',
     height: '90%',
     borderRadius: 10,
-    shadowColor: '#eee',
+    shadowColor: '#aaa',
     shadowOffset: {
-      height: 5,
-      width: 10
+      height: 20,
+      width: 0
     },
     shadowOpacity: 0.1,
-    shadowRadius: 0,
-    elevation: 10,
+    shadowRadius: 10,
+    elevation: 3,
     backgroundColor: 'blue',
     display: 'flex',
     flexDirection: 'row'
