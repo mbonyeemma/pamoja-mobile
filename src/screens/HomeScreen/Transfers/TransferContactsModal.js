@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import theme from '../../../constants/theme';
@@ -46,37 +46,38 @@ export default class TransferContactsModal extends Component {
           borderTopLeftRadius: 20,
           borderTopRightRadius: 20,
           paddingLeft: '10%',
-          paddingRight: '10%'
+          paddingRight: '10%',
+          paddingTop: '10%'
         }}
       >
-        <View
+        <TouchableOpacity
+          onPress={this.props.transferToMyAccount}
           style={{
-            flex: 1,
             flexDirection: 'row',
-            justifyContent: 'space-evenly',
-            paddingTop: '10%'
+            justifyContent: 'center',
+            alignItems: 'center'
           }}
         >
           <Icon style={{ flex: 1 }} name='md-card' size={20} />
           <Text
             allowFontScaling
             style={{
-              flex: 5,
               fontSize: theme.fonts.base,
               fontFamily: theme.fonts.regular,
-              color: theme.colors.lightBlack
+              color: theme.colors.lightBlack,
+              paddingRight: '10%'
             }}
           >
             Transfer to my Pamoja Account
           </Text>
-          <Icon style={{ flex: 0.5 }} name='md-arrow-forward' size={20} />
-        </View>
+          <Icon name='md-arrow-forward' size={20} />
+        </TouchableOpacity>
         <View
           style={{
             flex: 10,
             borderTopWidth: 1,
             paddingTop: '5%',
-            borderTopColor: theme.colors.gray
+            borderTopColor: theme.colors.darkGray
           }}
         >
           <View style={{ flex: 1, flexDirection: 'row' }}>

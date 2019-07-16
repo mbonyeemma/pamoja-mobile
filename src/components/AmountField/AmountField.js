@@ -7,7 +7,7 @@ export default ({
   amount,
   icon,
   submitTransfer,
-  openAmountField,
+  openAmountField = false,
   hideKeyboard
 }) => {
   return (
@@ -29,7 +29,7 @@ export default ({
           color: theme.colors.lightBlack
         }}
         placeholder={`Amount(Ugx)`}
-        onFocus={openAmountField && openAmountField}
+        onFocus={openAmountField || null}
         keyboardType={`numeric`}
       />
       <TouchableOpacity

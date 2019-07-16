@@ -24,7 +24,10 @@ import TransactionComplete from '../../components/TransactionComplete/Transactio
 import TransferSearchListModal from './Transfers/TransferSearchListModal';
 import DepositModal from './Deposits/DepositModal';
 import DepositAmountModal from './Deposits/DepositAmountModal';
+import TransferToOwnAccount from './Transfers/TransferToOwnAccount';
 import WithdrawalModal from './Withdrawals/WithdrawalModal';
+
+import theme from '../../constants/theme';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -37,10 +40,13 @@ export default class Home extends Component {
       prepaid: false
     },
     isModalShowing: false,
+    transferToOwn: false,
     transferring: false,
     transferred: false,
     openDepositForm: false,
-    processingDeposit: false
+    processingDeposit: false,
+    doneDepositProcessing: false,
+    transferToOwnDone: false
   };
 
   renderTopHeader = (
@@ -66,19 +72,11 @@ export default class Home extends Component {
         newProps = this.setState({
           modalProps: {
             height: '80%',
-            title: 'Withdraw',
             showCloseButton: true,
-            component: (
-              <WithdrawalModal
-                submitTransfer={() =>
-                  this.setState({
-                    isModalShowing: false,
-                    withdrawComplete: true
-                  })
-                }
-              />
-            ),
-            fullWidth: true
+            component:this.withdraw(),
+            fullWidth: true,
+            title: 'Withdraw',
+            showCloseButton: true
           },
           isModalShowing: true
         });
@@ -112,6 +110,7 @@ export default class Home extends Component {
                 pressed={() =>
                   this.setState({ isModalShowing: false, transferring: true })
                 }
+                transferToMyAccount={() => this.setState({ isModalShowing: false, transferToOwn: true })}
               />
             ),
             showCloseButton: true,
@@ -155,12 +154,60 @@ export default class Home extends Component {
   renderNextModals = () => {
     const {
       isModalShowing,
+      transferToOwn,
       transferring,
       transferred,
       openDepositForm,
       processingDeposit,
-      withdrawComplete
+      doneDepositProcessing,
+      withdrawComplete,
+      transferToOwnDone
     } = this.state;
+
+    if(transferToOwn && !isModalShowing){
+      return this.setState({
+        modalProps: {
+          height: '80%',
+          showCloseButton: true,
+          title: 'Transfer',
+          component: (
+            <TransferToOwnAccount
+              close={() =>
+                this.setState({
+                  isModalShowing: false,
+                  transferToOwn: false,
+                  transferToOwnDone: true
+                })
+              }
+            />
+          ),
+          fullWidth: true
+        },
+        isModalShowing: true
+      });
+    }
+    if(transferToOwnDone && !transferToOwn && !isModalShowing){
+      return this.setState({
+        isModalShowing: true,
+        modalProps: {
+          height: '30%',
+          component: (
+            <TransactionComplete
+              dueDate={true}
+              status={`Verifying`}
+              close={() =>
+                this.setState({
+                  isModalShowing: false,
+                  transferToOwnDone: false
+                })
+              }
+            />
+          ),
+          fullWidth: false
+        }
+      });
+    }
+    
     if (transferring && !isModalShowing) {
       return this.setState({
         modalProps: {
@@ -275,13 +322,31 @@ export default class Home extends Component {
       });
     }
 
-    if (processingDeposit && isModalShowing) {
-      this.processTransactionModal({ processingDeposit: false });
+    if (!doneDepositProcessing && processingDeposit && isModalShowing) {
+      const param = {
+        stateProp: { doneDepositProcessing: true },
+        label: 'Processing',
+        percent: '60%',
+        time: 2000,
+        color: 'blue'
+      };
+      this.processTransactionModal(param);
+    }
+
+    if (doneDepositProcessing && processingDeposit && isModalShowing) {
+      this.processTransactionModal({
+        stateProp: { processingDeposit: false, doneDepositProcessing: false },
+        label: 'Done',
+        percent: '100%',
+        time: 4000,
+        color: theme.colors.green
+      });
     }
   };
 
   processTransactionModal = property => {
-    property &&
+    const { stateProp, label, percent, time, color } = property;
+    if (property) {
       setTimeout(() => {
         this.setState({
           isModalShowing: true,
@@ -289,13 +354,13 @@ export default class Home extends Component {
             height: '30%',
             component: (
               <TransactionComplete
-                status={`Processing`}
-                progressColor={`blue`}
-                percentage={`60%`}
+                status={label}
+                progressColor={color}
+                percentage={percent}
                 close={() =>
                   this.setState({
                     isModalShowing: false,
-                    property
+                    stateProp
                   })
                 }
               />
@@ -303,7 +368,8 @@ export default class Home extends Component {
             fullWidth: false
           }
         });
-      }, 3000);
+      }, time);
+    }
   };
 
   render() {
@@ -324,11 +390,14 @@ export default class Home extends Component {
           close={() =>
             this.setState({
               isModalShowing: false,
+              transferToOwn:false,
               transferring: false,
               transferred: false,
               openDepositForm: false,
               processingDeposit: false,
-              withdrawComplete: false
+              withdrawComplete: false,
+              doneDepositProcessing: false,
+              transferToOwnDone: false
             })
           }
           component={modalProps.component || null}
