@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Text, View, ScrollView, SafeAreaView } from 'react-native';
+import { Text, View, ScrollView } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 import AccountListItem from '../../../components/AccountListItem/AccountListItem';
 import AmountField from '../../../components/AmountField/AmountField';
 import FormField from '../AirtimeRecharge/FormField';
@@ -54,7 +55,24 @@ export default class DepositModal extends Component {
         >
           From
         </Text>
-        <FormField mobile placeholder='774904567' header='Phone Number' />
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            paddingLeft: '5%',
+            paddingTop: '5%',
+            paddingRight: '5%'
+          }}
+        >
+          <Icon name={`md-call`} size={25} style={{ paddingRight: 10 }} />
+          <FormField
+            mobile
+            placeholder='774904567'
+            header='MM Number/Visa Card'
+          />
+        </View>
+
         <AccountListItem
           labelTitle={`To`}
           data={data}
@@ -68,9 +86,6 @@ export default class DepositModal extends Component {
           style={{
             justifyContent: 'center',
             alignItems: 'center'
-            //backgroundColor: theme.colors.darkGray,
-            //marginTop: '5%'
-            //height: '40%'
           }}
         >
           <AmountField

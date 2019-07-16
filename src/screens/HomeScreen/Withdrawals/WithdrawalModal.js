@@ -76,7 +76,7 @@ export default class WithdrawalModal extends Component {
             mobile
             textChanged={textChanged}
             placeholder='774904567'
-            header='Phone Number'
+            header='MM Number/Visa Card'
           />
         </View>
         <View
