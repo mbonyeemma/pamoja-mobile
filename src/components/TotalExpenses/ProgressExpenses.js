@@ -3,23 +3,33 @@ import { View, Text } from 'react-native';
 
 import theme from '../../constants/theme';
 
-const ProgressExpenses = () => (
+const ProgressExpenses = ({
+  style,
+  percentage,
+  showText,
+  amount,
+  background,
+  progressColor
+}) => (
   <View
-    style={{
-      flexDirection: 'row',
-      backgroundColor: theme.colors.black,
-      width: '100%',
-      height: 30,
-      marginTop: 25,
-      borderRadius: 50
-    }}
+    style={[
+      {
+        flexDirection: 'row',
+        backgroundColor: background || theme.colors.black,
+        width: '80%',
+        height: 30,
+        marginTop: 25,
+        borderRadius: 50
+      },
+      style
+    ]}
   >
     <View
       style={{
-        width: '35%',
+        width: percentage || '35%',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: theme.colors.red,
+        backgroundColor: progressColor || theme.colors.red,
         borderRadius: 50
       }}
     >
@@ -27,26 +37,22 @@ const ProgressExpenses = () => (
         style={{
           fontSize: theme.fonts.base,
           fontFamily: theme.fonts.regular,
-          // justifyContent: 'center',
-          // alignItems: 'center',
           color: theme.colors.whiteLight
         }}
       >
-        35%
+        {showText ? percentage || `35%` : null}
       </Text>
     </View>
     <View style={{ justifyContent: 'center', alignItems: 'center' }}>
       <Text
         style={{
-          // justifyContent: 'center',
-          // alignItems: 'center',
           marginLeft: '20%',
           fontSize: theme.fonts.base,
           fontFamily: theme.fonts.regular,
           color: theme.colors.whiteLight
         }}
       >
-        of 43,750,000
+        {showText ? `of ${amount}` : null}
       </Text>
     </View>
   </View>

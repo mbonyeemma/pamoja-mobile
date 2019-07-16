@@ -12,12 +12,19 @@ import Header from '../../components/Header/Header';
 import TopCards from './TopCardScroller';
 import BottomCards from './BottomCardScroller';
 import ProfilePic from '../../../assets/profilepic.png';
-import Card from '../../components/Card/Card';
 import Styles from './HomeStyles';
 import TransactionDetail from './TransactionDetails';
 import Modal from '../../components/Modal/Modal';
 import AirtimeRecharge from './AirtimeRecharge/AirtimeRecharge';
 import ScrollableCards from '../../components/ScrollableCards/ScrollableCards';
+
+import TransferContactsModal from './Transfers/TransferContactsModal';
+import TransferFormModal from './Transfers/TransferFormModal';
+import TransactionComplete from '../../components/TransactionComplete/TransactionComplete';
+import TransferSearchListModal from './Transfers/TransferSearchListModal';
+import DepositModal from './Deposits/DepositModal';
+import DepositAmountModal from './Deposits/DepositAmountModal';
+import WithdrawalModal from './Withdrawals/WithdrawalModal';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -29,7 +36,11 @@ export default class Home extends Component {
       modalProps: true,
       prepaid: false
     },
-    isModalShowing: false
+    isModalShowing: false,
+    transferring: false,
+    transferred: false,
+    openDepositForm: false,
+    processingDeposit: false
   };
 
   renderTopHeader = (
@@ -46,7 +57,7 @@ export default class Home extends Component {
     </View>
   );
 
-  renderModal = (title) => {
+  renderModal = title => {
     let newProps = null;
     const { prepaid } = this.state;
     // eslint-disable-next-line default-case
@@ -54,18 +65,58 @@ export default class Home extends Component {
       case 'Withdraw':
         newProps = this.setState({
           modalProps: {
-            height: '20%',
-            component: this.withdraw(),
-            fullWidth: false
+            height: '80%',
+            title: 'Withdraw',
+            showCloseButton: true,
+            component: (
+              <WithdrawalModal
+                submitTransfer={() =>
+                  this.setState({
+                    isModalShowing: false,
+                    withdrawComplete: true
+                  })
+                }
+              />
+            ),
+            fullWidth: true
           },
           isModalShowing: true
         });
-        break;
       case 'Deposit':
         newProps = this.setState({
           modalProps: {
             height: '80%',
-            component: this.deposit()
+            component: (
+              <DepositModal
+                openAmountField={() =>
+                  this.setState({
+                    openDepositForm: true,
+                    isModalShowing: false
+                  })
+                }
+              />
+            ),
+            title: 'Deposit',
+            showCloseButton: true,
+            fullWidth: true
+          },
+          isModalShowing: true
+        });
+        break;
+      case 'Transfer':
+        newProps = this.setState({
+          modalProps: {
+            height: '80%',
+            component: (
+              <TransferContactsModal
+                pressed={() =>
+                  this.setState({ isModalShowing: false, transferring: true })
+                }
+              />
+            ),
+            showCloseButton: true,
+            title: 'Transfer',
+            fullWidth: true
           },
           isModalShowing: true
         });
@@ -87,23 +138,182 @@ export default class Home extends Component {
     this.setState({
       prepaid: false
     });
-  }
+  };
 
   renderAirtimeRechargeModal = () => (
-    <AirtimeRecharge prePaid={this.state.prepaid} setPost={() => this.setState({ prepaid: false })} setPre={() => this.setState({ prepaid: true })} />
-  )
+    <AirtimeRecharge
+      prePaid={this.state.prepaid}
+      setPost={() => this.setState({ prepaid: false })}
+      setPre={() => this.setState({ prepaid: true })}
+    />
+  );
 
   withdraw = () => <Text>This is withdraw</Text>;
 
   deposit = () => <Text>This is deposit</Text>;
 
+  renderNextModals = () => {
+    const {
+      isModalShowing,
+      transferring,
+      transferred,
+      openDepositForm,
+      processingDeposit,
+      withdrawComplete
+    } = this.state;
+    if (transferring && !isModalShowing) {
+      return this.setState({
+        modalProps: {
+          height: '80%',
+          showCloseButton: true,
+          title: 'Transfer',
+          component: (
+            <TransferFormModal
+              showDateField={true}
+              submitTransfer={() =>
+                this.setState({
+                  isModalShowing: false,
+                  transferring: false,
+                  transferred: true
+                })
+              }
+            />
+          ),
+          fullWidth: true
+        },
+        isModalShowing: true
+      });
+    }
+
+    if (transferred && !transferring && !isModalShowing) {
+      return this.setState({
+        isModalShowing: true,
+        modalProps: {
+          height: '30%',
+          component: (
+            <TransactionComplete
+              dueDate={true}
+              status={`Verifying`}
+              close={() =>
+                this.setState({
+                  isModalShowing: false,
+                  transferring: false,
+                  transferred: false
+                })
+              }
+            />
+          ),
+          fullWidth: false
+        }
+      });
+    }
+    if (openDepositForm && !isModalShowing) {
+      return this.setState({
+        modalProps: {
+          height: '25%',
+          component: (
+            <DepositAmountModal
+              cancel={() =>
+                this.setState({
+                  isModalShowing: false,
+                  openDepositForm: false
+                })
+              }
+              goToDeposit={() =>
+                this.setState({
+                  isModalShowing: false,
+                  openDepositForm: false,
+                  processingDeposit: true
+                })
+              }
+            />
+          ),
+          fullWidth: true
+        },
+        isModalShowing: true
+      });
+    }
+    if (processingDeposit && !isModalShowing) {
+      return this.setState({
+        isModalShowing: true,
+        modalProps: {
+          height: '30%',
+          component: (
+            <TransactionComplete
+              status={`Verifying`}
+              close={() =>
+                this.setState({
+                  isModalShowing: false,
+                  processingDeposit: false
+                })
+              }
+            />
+          ),
+          fullWidth: false
+        }
+      });
+    }
+
+    if (withdrawComplete && !isModalShowing) {
+      return this.setState({
+        isModalShowing: true,
+        modalProps: {
+          height: '30%',
+          component: (
+            <TransactionComplete
+              status={`Verifying`}
+              close={() =>
+                this.setState({
+                  isModalShowing: false,
+                  withdrawComplete: false
+                })
+              }
+            />
+          ),
+          fullWidth: false
+        }
+      });
+    }
+
+    if (processingDeposit && isModalShowing) {
+      this.processTransactionModal({ processingDeposit: false });
+    }
+  };
+
+  processTransactionModal = property => {
+    property &&
+      setTimeout(() => {
+        this.setState({
+          isModalShowing: true,
+          modalProps: {
+            height: '30%',
+            component: (
+              <TransactionComplete
+                status={`Processing`}
+                progressColor={`blue`}
+                percentage={`60%`}
+                close={() =>
+                  this.setState({
+                    isModalShowing: false,
+                    property
+                  })
+                }
+              />
+            ),
+            fullWidth: false
+          }
+        });
+      }, 3000);
+  };
+
   render() {
     const { isModalShowing, modalProps } = this.state;
+    this.renderNextModals();
     return (
       <View
         style={{
           flex: 1,
-          display: 'flex',
+          display: 'flex'
           // backgroundColor: "rgb(240, 240, 240)"
         }}
       >
@@ -111,10 +321,21 @@ export default class Home extends Component {
           fullWidth={modalProps.fullWidth}
           styles={modalProps}
           showing={isModalShowing}
-          close={() => this.setState({ isModalShowing: false })}
+          close={() =>
+            this.setState({
+              isModalShowing: false,
+              transferring: false,
+              transferred: false,
+              openDepositForm: false,
+              processingDeposit: false,
+              withdrawComplete: false
+            })
+          }
           component={modalProps.component || null}
+          title={modalProps.title || null}
+          showCloseButton={modalProps.showCloseButton || false}
         />
-        <StatusBar backgroundColor="blue" />
+        <StatusBar backgroundColor='blue' />
         <View style={{ height: '30%' }}>
           <Header topHeader={this.renderTopHeader} />
         </View>
@@ -161,7 +382,7 @@ export default class Home extends Component {
             marginTop: '1%',
             height: 90,
             borderBottomColor: '#ccc',
-            borderBottomWidth: 1,
+            borderBottomWidth: 1
             // borderWidth: 1
           }}
         >
