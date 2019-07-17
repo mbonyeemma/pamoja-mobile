@@ -8,8 +8,12 @@ import CreateAccount from './CreateAccount';
 import Verification from './PhoneVerification';
 import AccountDetails from '../screens/AccountDetails/JointAccount';
 
+
+import Profile from '../screens/ProfileScreen/ProfileScreen'
+
 const navigator = createStackNavigator(
   {
+    Profile,
     BottomMenu: BottomMenuScreen,
     Splash: SplashScreen,
     Guide: GuideScreens,
