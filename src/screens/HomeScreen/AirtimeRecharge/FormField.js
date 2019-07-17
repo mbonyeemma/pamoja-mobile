@@ -28,7 +28,7 @@ const FormField = ({
           width: '100%',
           borderBottomWidth: 1,
           alignItems: 'center',
-          borderBottomColor: 'rgba(0,0,0,.25)',
+          borderBottomColor: 'rgba(0,0,0,.25)'
         }}
       >
         <View style={{ justifyContent: 'center' }}>
@@ -38,14 +38,17 @@ const FormField = ({
           name={leftIconName}
           size={25}
           color={iconColor}
-          style={{ alignSelf: 'center', borderRightWidth: 1, borderRightColor: 'rgba(0,0,0,.25)' }}
+          style={{
+            alignSelf: 'center',
+            borderRightWidth: 1,
+            borderRightColor: 'rgba(0,0,0,.25)'
+          }}
         />
         <TextInput
           onChangeText={textChanged}
           style={{ flexGrow: 1 }}
           placeholder={placeholder}
           editable={canEdit}
-          
         />
         {rightIcon ? (
           <Icon
@@ -74,7 +77,7 @@ const FormField = ({
           onChangeText={textChanged}
           style={{
             width: rightIcon ? '80%' : '90%',
-            flexGrow: 1,
+            flexGrow: 1
             // height: '50%'
           }}
           placeholder={placeholder}
@@ -97,7 +100,12 @@ const FormField = ({
     <View
       style={[{ width: '90%', alignSelf: 'center', marginTop: '1%' }, styles]}
     >
-      <Text allowFontScaling style={{color: 'rgba(0,0,0,.25)', marginBottom: '-3%'}}>{header}</Text>
+      <Text
+        allowFontScaling
+        style={{ color: 'rgba(0,0,0,.25)', marginBottom: '-3%' }}
+      >
+        {header}
+      </Text>
       {textInput}
     </View>
   );

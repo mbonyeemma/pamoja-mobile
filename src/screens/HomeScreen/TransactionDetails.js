@@ -1,12 +1,14 @@
 import React from 'react';
 import { View, Text, Image, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-// import { TouchableOpacity } from 'react-native-gesture-handler';
 import ProfilePic from '../../../assets/profilepic.png';
+import theme from '../../constants/theme';
 
 const { width } = Dimensions.get('screen');
 
 const TransactionDetails = ({
+  showMore = true,
+  name,
   status = 'pending',
   description,
   time,
@@ -14,7 +16,7 @@ const TransactionDetails = ({
   // last,
   amount
 }) => {
-  const switchedStatus = (_status) => {
+  const switchedStatus = _status => {
     let statusColor = '';
     // eslint-disable-next-line default-case
     switch (_status) {
@@ -37,10 +39,9 @@ const TransactionDetails = ({
       style={{
         width: '100%',
         flexDirection: 'row',
-        height: 60,
-        // top: first ? 0 : 10,
-        flex: 1, 
-        // borderWidth: 1
+        height: width > 320 ? 60 : '25%',
+        marginTop: first ? 0 : 4,
+        flex: 1
       }}
     >
       <View style={{ width: '20%', height: '100%', justifyContent: 'center' }}>
@@ -49,25 +50,33 @@ const TransactionDetails = ({
 
       <View
         style={{
-          width: '40%',
+          width: showMore ? '40%' : '60%',
           height: '100%',
           justifyContent: 'center',
-          borderBottomColor: '#aaa',
+          borderBottomColor: '#eee',
           borderBottomWidth: 1
         }}
       >
-        <Text
-          allowFontScaling
-          style={{ fontSize: 14, color: 'rgba(0,0,0,.8)' }}
-        >
-          {`${description.substring(0, 13)}...`}
-        </Text>
-        <Text
-          allowFontScaling
-          style={{ fontSize: 10, color: 'rgba(0,0,0,.3)' }}
-        >
-          {time}
-        </Text>
+        {showMore ? (
+          <>
+            <Text allowFontScaling style={{ fontSize: 14 }}>
+              {`${description.substring(0, 13)}...`}
+            </Text>
+            <Text allowFontScaling style={{ fontSize: 10 }}>
+              {time}
+            </Text>
+          </>
+        ) : (
+          <Text
+            allowFontScaling
+            style={{
+              fontSize: theme.fonts.base + 1,
+              fontFamily: theme.fonts.regular
+            }}
+          >
+            {name}
+          </Text>
+        )}
       </View>
 
       <View
@@ -77,31 +86,33 @@ const TransactionDetails = ({
           alignItems: 'center',
           flexGrow: 1,
           justifyContent: 'flex-end',
-          borderBottomColor: '#aaa',
+          borderBottomColor: '#eee',
           borderBottomWidth: 1
         }}
       >
-        <View style={{ alignItems: 'flex-end', marginRight: '5%' }}>
-          <Text
-            allowFontScaling
-            style={{ fontSize: 10, color: 'rgba(0,0,0,1)' }}
-          >
-            ugx
-            {' '}
-            <Text style={{ fontSize: 14, fontWeight: 'bold' }}>{amount}</Text>
-          </Text>
-          <Text
-            allowFontScaling
-            style={{ fontSize: 12, color: switchedStatus(status) }}
-          >
-            {status}
-          </Text>
-        </View>
-        <View style={{}}>
+        {showMore && (
+          <View style={{ alignItems: 'flex-end', marginRight: '5%' }}>
+            <Text
+              allowFontScaling
+              style={{ fontSize: 10, color: 'rgba(0,0,0,1)' }}
+            >
+              ugx{' '}
+              <Text style={{ fontSize: 14, fontWeight: 'bold' }}>{amount}</Text>
+            </Text>
+            <Text
+              allowFontScaling
+              style={{ fontSize: 12, color: switchedStatus(status) }}
+            >
+              {status}
+            </Text>
+          </View>
+        )}
+
+        <View>
           <Icon
-            name="keyboard-arrow-right"
+            name='keyboard-arrow-right'
             size={20}
-            color="#aaa"
+            color='#aaa'
             onPress={() => alert(`${description} details coming sson`)}
           />
         </View>
