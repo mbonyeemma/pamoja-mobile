@@ -8,8 +8,11 @@ import CreateAccount from './CreateAccount';
 import Verification from './PhoneVerification';
 import AccountDetails from '../screens/AccountDetails/JointAccount';
 
+
+import Scroller from '../components/SelectableList/SelectableList';
 const navigator = createStackNavigator(
   {
+    Scroller,
     BottomMenu: BottomMenuScreen,
     Splash: SplashScreen,
     Guide: GuideScreens,
