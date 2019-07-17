@@ -5,16 +5,11 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import Accounts from '../../screens/Accounts/Accounts';
 import TransactionHistory from '../../screens/TransactionHistory';
 import Homescreen from '../../screens/HomeScreen/Home';
+import ProfileScreen from '../../screens/ProfileScreen/ProfileScreen';
 
 const SettingsScreen = () => (
   <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
     <Text>Settings!</Text>
-  </View>
-);
-
-const MoreScreen = () => (
-  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-    <Text>More!</Text>
   </View>
 );
 
@@ -81,7 +76,7 @@ export default createBottomTabNavigator(
       }
     },
     More: {
-      screen: MoreScreen,
+      screen: ProfileScreen,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <Icon
