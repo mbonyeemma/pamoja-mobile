@@ -8,6 +8,7 @@ import CreateAccount from './CreateAccount';
 import Verification from './PhoneVerification';
 import AccountDetails from '../screens/AccountDetails/JointAccount';
 
+
 const navigator = createStackNavigator(
   {
     BottomMenu: BottomMenuScreen,
