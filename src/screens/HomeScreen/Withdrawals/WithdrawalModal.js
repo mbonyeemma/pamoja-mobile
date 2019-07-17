@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, TextInput, View, ScrollView } from 'react-native';
+import { Text, View, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import AccountListItem from '../../../components/AccountListItem/AccountListItem';
 import AmountField from '../../../components/AmountField/AmountField';
@@ -67,14 +67,13 @@ export default class WithdrawalModal extends Component {
             flexDirection: 'row',
             paddingLeft: '5%',
             paddingRight: '5%',
-
             alignItems: 'center'
           }}
         >
           <Icon name={`md-call`} size={25} style={{ paddingRight: 10 }} />
           <FormField
             mobile
-            textChanged={textChanged}
+            textChanged={() => null}
             placeholder='774904567'
             header='MM Number/Visa Card'
           />
@@ -83,9 +82,7 @@ export default class WithdrawalModal extends Component {
           style={{
             justifyContent: 'center',
             alignItems: 'center',
-            backgroundColor: theme.colors.darkGray,
-            marginTop: '5%',
-            height: '40%'
+            paddingTop: 20
           }}
         >
           <AmountField

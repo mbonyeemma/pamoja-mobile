@@ -73,13 +73,23 @@ export default class Home extends Component {
           modalProps: {
             height: '80%',
             showCloseButton: true,
-            component:this.withdraw(),
+            component: (
+              <WithdrawalModal
+                submitTransfer={() =>
+                  this.setState({
+                    withdrawComplete: true,
+                    isModalShowing: false
+                  })
+                }
+              />
+            ),
             fullWidth: true,
             title: 'Withdraw',
             showCloseButton: true
           },
           isModalShowing: true
         });
+        break;
       case 'Deposit':
         newProps = this.setState({
           modalProps: {
@@ -110,7 +120,9 @@ export default class Home extends Component {
                 pressed={() =>
                   this.setState({ isModalShowing: false, transferring: true })
                 }
-                transferToMyAccount={() => this.setState({ isModalShowing: false, transferToOwn: true })}
+                transferToMyAccount={() =>
+                  this.setState({ isModalShowing: false, transferToOwn: true })
+                }
               />
             ),
             showCloseButton: true,
@@ -164,7 +176,7 @@ export default class Home extends Component {
       transferToOwnDone
     } = this.state;
 
-    if(transferToOwn && !isModalShowing){
+    if (transferToOwn && !isModalShowing) {
       return this.setState({
         modalProps: {
           height: '80%',
@@ -186,7 +198,7 @@ export default class Home extends Component {
         isModalShowing: true
       });
     }
-    if(transferToOwnDone && !transferToOwn && !isModalShowing){
+    if (transferToOwnDone && !transferToOwn && !isModalShowing) {
       return this.setState({
         isModalShowing: true,
         modalProps: {
@@ -207,7 +219,7 @@ export default class Home extends Component {
         }
       });
     }
-    
+
     if (transferring && !isModalShowing) {
       return this.setState({
         modalProps: {
@@ -390,7 +402,7 @@ export default class Home extends Component {
           close={() =>
             this.setState({
               isModalShowing: false,
-              transferToOwn:false,
+              transferToOwn: false,
               transferring: false,
               transferred: false,
               openDepositForm: false,
