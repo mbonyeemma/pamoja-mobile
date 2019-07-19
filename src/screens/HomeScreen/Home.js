@@ -194,7 +194,7 @@ export default class Home extends Component {
             isModalShowing: true
           });
       break;
-      case 'Tv':
+      case 'Dstv':
           newProps = this.setState({
             modalProps: {
               height: computedHeight,

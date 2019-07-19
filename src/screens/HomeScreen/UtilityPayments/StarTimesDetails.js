@@ -10,20 +10,17 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import TVListItem from './TVListItem';
 import theme from '../../../constants/theme';
 
-export default class StarTimesDetails extends Component{
+export default class StarTimesDetails extends Component {
   state = {
       mode: 2
-    }
-  };
-  render(){
+    };
+  render() {
     return (
-      <SafeAreaView
+        <SafeAreaView
         style={{
           flex: 1,
-          width: '100%',
-          height: '100%',
-          borderTopRightRadius: 20,
-          borderTopLeftRadius: 20,
+          borderTopRightRadius: 30,
+          borderTopLeftRadius: 30,
           backgroundColor: theme.colors.darkGray
         }}
       >
@@ -31,7 +28,7 @@ export default class StarTimesDetails extends Component{
           horizontal
           style={{
             flex: 1,
-            paddingTop: '15%',
+            marginTop: 60,
             backgroundColor: theme.colors.darkGray
           }}
         >
@@ -42,13 +39,9 @@ export default class StarTimesDetails extends Component{
                 <TouchableOpacity
                   style={{
                     flex: 1,
-                    padding: 2,
-                    //borderWidth: 1,
-                    borderRadius: 20,
+                    borderRadius: 10,
                     backgroundColor: this.state.mode === id ? theme.colors.white : theme.colors.darkGray,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    padding: 5
+                    padding: 12
                   }}
                   key={Math.random()}
                   onPress={() => this.setState({ mode: id  })}
@@ -58,7 +51,7 @@ export default class StarTimesDetails extends Component{
                     style={{
                       fontSize: theme.fonts.base + 2,
                       fontFamily: theme.fonts.regular,
-                      color: this.state.mode === id ? theme.colors.blue : theme.colors.gray
+                      color: this.state.mode === id ? theme.colors.blue : theme.colors.darkerGray
                     }}
                   >
                     {label}
@@ -122,4 +115,6 @@ export default class StarTimesDetails extends Component{
       </SafeAreaView>
     )
   }
-};
+}
+
+
