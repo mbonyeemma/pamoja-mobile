@@ -193,7 +193,16 @@ export default class Home extends Component {
             },
             isModalShowing: true
           });
-        break;
+      break;
+      case 'Tv':
+          newProps = this.setState({
+            modalProps: {
+              height: computedHeight,
+              component:( <StarTimesDetails /> )
+            },
+            isModalShowing: true
+          });
+      break;
       case 'Airtime':
         newProps = this.setState({
           modalProps: {

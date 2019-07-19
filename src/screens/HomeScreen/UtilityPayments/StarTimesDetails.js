@@ -10,50 +10,11 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import TVListItem from './TVListItem';
 import theme from '../../../constants/theme';
 
-export default class StartTimesDetails extends Component{
+export default class StarTimesDetails extends Component{
   state = {
-      monthly: {
-        name: 'Monthly Packs',
-        data:[ 
-          {
-            firstText :'Recharge with Ugx 328,000 for a',
-            secondText :'Monthly and get 35 Channels',
-            amount :'328,000'
-          },
-          {
-            firstText :'Recharge with Ugx 328,000 for a',
-            secondText :'Monthly and get 35 Channels',
-            amount :'328,000'
-          },
-          {
-            firstText :'Recharge with Ugx 328,000 for a',
-            secondText :'Monthly and get 35 Channels',
-            amount :'328,000'
-          }
-        ]
-      },
-      threeMonths: {
-        name: '3 Months Packs',
-        data:[ 
-          {
-            firstText :'Recharge with Ugx 328,000 for a',
-            secondText :'3 Months and get 35 Channels',
-            amount :'328,000'
-          },
-          {
-            firstText :'Recharge with Ugx 328,000 for a',
-            secondText :'3 Months and get 35 Channels',
-            amount :'328,000'
-          },
-          {
-            firstText :'Recharge with Ugx 328,000 for a',
-            secondText :'3 Months and get 35 Channels',
-            amount :'328,000'
-          }
-        ]
-      }
+      mode: 2
     }
-  }
+  };
   render(){
     return (
       <SafeAreaView
@@ -74,8 +35,9 @@ export default class StartTimesDetails extends Component{
             backgroundColor: theme.colors.darkGray
           }}
         >
-          {['Monthly Pack', '3 Month Packs', '6 Month Packs', 'Annual Packs'].map(
-            (value, index) => {
+          {[{ id: 1, label: 'Monthly Pack'}, {id: 2, label: '3 Month Packs'}, 
+          {id: 3, label: '6 Month Packs'}, {id: 4, label: 'Annual Packs'} ].map(
+            ({ id, label }) => {
               return (
                 <TouchableOpacity
                   style={{
@@ -83,22 +45,23 @@ export default class StartTimesDetails extends Component{
                     padding: 2,
                     //borderWidth: 1,
                     borderRadius: 20,
-                    backgroundColor: theme.colors.darkGray,
+                    backgroundColor: this.state.mode === id ? theme.colors.white : theme.colors.darkGray,
                     justifyContent: 'center',
                     alignItems: 'center',
                     padding: 5
                   }}
                   key={Math.random()}
-                  onPress={() => alert('1')}
+                  onPress={() => this.setState({ mode: id  })}
                 >
                   <Text
                     allowFontScaling
                     style={{
                       fontSize: theme.fonts.base + 2,
-                      fontFamily: theme.fonts.regular
+                      fontFamily: theme.fonts.regular,
+                      color: this.state.mode === id ? theme.colors.blue : theme.colors.gray
                     }}
                   >
-                    {value}
+                    {label}
                   </Text>
                 </TouchableOpacity>
               );
