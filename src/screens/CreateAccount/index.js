@@ -16,6 +16,7 @@ import Modal from '../../components/Modal/Modal';
 
 import DisplayJointAccount from './DisplayJointAccount';
 import DisplayCustomAccount from './DisplayCustomAccount';
+import SuccessModal from './successModal.js';
 
 import theme from '../../constants/theme';
 import styles from './CreateAccountStyles';
@@ -35,32 +36,9 @@ class CreateAccount extends Component {
 
   bottomHeader = <ActionBottomHeader bottomText='Create New Account' />;
 
-  renderSuccessModal = (
-    <View style={styles.successModalContainer}>
-      <View>
-        <View style={styles.contentContainer}>
-          <Icon
-            name='md-checkmark-circle'
-            size={25}
-            color={theme.colors.lightGreen}
-          />
-          <View style={styles.spacedPadding}>
-            <Text style={styles.actionText}>Success</Text>
-            <Text style={styles.regularBaseFonted}>
-              Joint Account successfully created
-            </Text>
-          </View>
-          <Icon
-            name='md-close'
-            size={25}
-            onPress={() => this.setState({ showModal: false })}
-          />
-        </View>
-      </View>
-    </View>
-  );
-
   showScreen = id => this.setState({ mode: id });
+
+  renderModal = () => <SuccessModal close={() => this.setState({ showModal: false })} />;
 
   render() {
     const { mode, showModal } = this.state;
@@ -82,8 +60,8 @@ class CreateAccount extends Component {
         <View style={{ height: '15%' }}>
           <Modal
             fullWidth={false}
-            styles={{ height: 10, borderWidth: 1 }}
-            component={this.renderSuccessModal}
+            styles={{ height: '15%', borderWidth: 0 }}
+            component={this.renderModal()}
             showing={showModal}
             backdropOpacity={0}
             close={() => this.setState({ showModal: false })}
