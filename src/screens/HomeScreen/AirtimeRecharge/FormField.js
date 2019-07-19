@@ -9,7 +9,7 @@ const FormField = ({
   icon = true,
   leftIconName = 'arrow-drop-down',
   rightIconName = 'arrow-drop-down',
-  rightIcon = false,
+  rightIcon,
   iconSize = 25,
   iconColor = 'rgba(0,0,0,.5)',
   header = 'Heading',
@@ -83,7 +83,7 @@ const FormField = ({
           placeholder={placeholder}
           editable={canEdit}
         />
-        {icon ? (
+        {rightIcon ? (
           <Icon
             name={rightIconName}
             size={iconSize}

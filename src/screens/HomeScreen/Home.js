@@ -26,6 +26,8 @@ import DepositModal from './Deposits/DepositModal';
 import DepositAmountModal from './Deposits/DepositAmountModal';
 import TransferToOwnAccount from './Transfers/TransferToOwnAccount';
 import WithdrawalModal from './Withdrawals/WithdrawalModal';
+import TvModal from './Tv/TvModal';
+import { items } from '../../components/SelectableList/SelectableList';
 
 import theme from '../../constants/theme';
 
@@ -46,7 +48,30 @@ export default class Home extends Component {
     openDepositForm: false,
     processingDeposit: false,
     doneDepositProcessing: false,
-    transferToOwnDone: false
+    transferToOwnDone: false,
+    list: items,
+    subscription: true
+  };
+
+  switchSelectedTvSubscription = (index) => {
+    const { list } = this.state;
+    const newList = [...list];
+    newList[index].selected = !list[index].selected;
+    return this.setState({
+      list: newList
+    });
+  };
+
+  calcCount = () => {
+    const { list } = this.state;
+    let c = 0;
+    list.map((el) => {
+      if (el.selected) {
+        c += 1;
+        return c;
+      }
+    });
+    return c;
   };
 
   renderTopHeader = (
@@ -63,9 +88,9 @@ export default class Home extends Component {
     </View>
   );
 
-  renderModal = title => {
+  renderModal = (title) => {
     let newProps = null;
-    const { prepaid } = this.state;
+    const { list, subscription } = this.state;
     // eslint-disable-next-line default-case
     switch (title) {
       case 'Withdraw':
@@ -75,11 +100,10 @@ export default class Home extends Component {
             showCloseButton: true,
             component: (
               <WithdrawalModal
-                submitTransfer={() =>
-                  this.setState({
-                    withdrawComplete: true,
-                    isModalShowing: false
-                  })
+                submitTransfer={() => this.setState({
+                  withdrawComplete: true,
+                  isModalShowing: false
+                })
                 }
               />
             ),
@@ -96,11 +120,10 @@ export default class Home extends Component {
             height: '80%',
             component: (
               <DepositModal
-                openAmountField={() =>
-                  this.setState({
-                    openDepositForm: true,
-                    isModalShowing: false
-                  })
+                openAmountField={() => this.setState({
+                  openDepositForm: true,
+                  isModalShowing: false
+                })
                 }
               />
             ),
@@ -117,11 +140,9 @@ export default class Home extends Component {
             height: '80%',
             component: (
               <TransferContactsModal
-                pressed={() =>
-                  this.setState({ isModalShowing: false, transferring: true })
+                pressed={() => this.setState({ isModalShowing: false, transferring: true })
                 }
-                transferToMyAccount={() =>
-                  this.setState({ isModalShowing: false, transferToOwn: true })
+                transferToMyAccount={() => this.setState({ isModalShowing: false, transferToOwn: true })
                 }
               />
             ),
@@ -141,15 +162,33 @@ export default class Home extends Component {
           isModalShowing: true
         });
         break;
+      case 'Tv':
+        newProps = this.setState({
+          modalProps: {
+            height: '80%',
+            component: (
+              <TvModal
+                subscription={subscription}
+                renewSubHandler={this.toggleSubscription}
+                closeModal={() => this.setState({ isModalShowing: false })}
+              />
+            ),
+            showCloseButton: true,
+            fullWidth: true
+          },
+          isModalShowing: true
+        });
+        break;
     }
     return newProps;
   };
 
-  setPaymentMethod = () => {
-    this.setState({
-      prepaid: false
-    });
-  };
+  toggleSubscription = () => {
+    console.log('xxxxxxxxxxxxx');
+    this.setState(prevState => ({
+      subscription: !prevState.subscription
+    }));
+  }
 
   renderAirtimeRechargeModal = () => (
     <AirtimeRecharge
@@ -184,12 +223,11 @@ export default class Home extends Component {
           title: 'Transfer',
           component: (
             <TransferToOwnAccount
-              close={() =>
-                this.setState({
-                  isModalShowing: false,
-                  transferToOwn: false,
-                  transferToOwnDone: true
-                })
+              close={() => this.setState({
+                isModalShowing: false,
+                transferToOwn: false,
+                transferToOwnDone: true
+              })
               }
             />
           ),
@@ -205,13 +243,12 @@ export default class Home extends Component {
           height: '30%',
           component: (
             <TransactionComplete
-              dueDate={true}
-              status={`Verifying`}
-              close={() =>
-                this.setState({
-                  isModalShowing: false,
-                  transferToOwnDone: false
-                })
+              dueDate
+              status="Verifying"
+              close={() => this.setState({
+                isModalShowing: false,
+                transferToOwnDone: false
+              })
               }
             />
           ),
@@ -228,13 +265,12 @@ export default class Home extends Component {
           title: 'Transfer',
           component: (
             <TransferFormModal
-              showDateField={true}
-              submitTransfer={() =>
-                this.setState({
-                  isModalShowing: false,
-                  transferring: false,
-                  transferred: true
-                })
+              showDateField
+              submitTransfer={() => this.setState({
+                isModalShowing: false,
+                transferring: false,
+                transferred: true
+              })
               }
             />
           ),
@@ -251,14 +287,13 @@ export default class Home extends Component {
           height: '30%',
           component: (
             <TransactionComplete
-              dueDate={true}
-              status={`Verifying`}
-              close={() =>
-                this.setState({
-                  isModalShowing: false,
-                  transferring: false,
-                  transferred: false
-                })
+              dueDate
+              status="Verifying"
+              close={() => this.setState({
+                isModalShowing: false,
+                transferring: false,
+                transferred: false
+              })
               }
             />
           ),
@@ -272,18 +307,16 @@ export default class Home extends Component {
           height: '25%',
           component: (
             <DepositAmountModal
-              cancel={() =>
-                this.setState({
-                  isModalShowing: false,
-                  openDepositForm: false
-                })
+              cancel={() => this.setState({
+                isModalShowing: false,
+                openDepositForm: false
+              })
               }
-              goToDeposit={() =>
-                this.setState({
-                  isModalShowing: false,
-                  openDepositForm: false,
-                  processingDeposit: true
-                })
+              goToDeposit={() => this.setState({
+                isModalShowing: false,
+                openDepositForm: false,
+                processingDeposit: true
+              })
               }
             />
           ),
@@ -299,12 +332,11 @@ export default class Home extends Component {
           height: '30%',
           component: (
             <TransactionComplete
-              status={`Verifying`}
-              close={() =>
-                this.setState({
-                  isModalShowing: false,
-                  processingDeposit: false
-                })
+              status="Verifying"
+              close={() => this.setState({
+                isModalShowing: false,
+                processingDeposit: false
+              })
               }
             />
           ),
@@ -320,12 +352,11 @@ export default class Home extends Component {
           height: '30%',
           component: (
             <TransactionComplete
-              status={`Verifying`}
-              close={() =>
-                this.setState({
-                  isModalShowing: false,
-                  withdrawComplete: false
-                })
+              status="Verifying"
+              close={() => this.setState({
+                isModalShowing: false,
+                withdrawComplete: false
+              })
               }
             />
           ),
@@ -356,7 +387,7 @@ export default class Home extends Component {
     }
   };
 
-  processTransactionModal = property => {
+  processTransactionModal = (property) => {
     const { stateProp, label, percent, time, color } = property;
     if (property) {
       setTimeout(() => {
@@ -369,11 +400,10 @@ export default class Home extends Component {
                 status={label}
                 progressColor={color}
                 percentage={percent}
-                close={() =>
-                  this.setState({
-                    isModalShowing: false,
-                    stateProp
-                  })
+                close={() => this.setState({
+                  isModalShowing: false,
+                  stateProp
+                })
                 }
               />
             ),
@@ -386,6 +416,8 @@ export default class Home extends Component {
 
   render() {
     const { isModalShowing, modalProps } = this.state;
+
+    console.log('subscription', this.state.subscription);
     this.renderNextModals();
     return (
       <View
@@ -399,24 +431,23 @@ export default class Home extends Component {
           fullWidth={modalProps.fullWidth}
           styles={modalProps}
           showing={isModalShowing}
-          close={() =>
-            this.setState({
-              isModalShowing: false,
-              transferToOwn: false,
-              transferring: false,
-              transferred: false,
-              openDepositForm: false,
-              processingDeposit: false,
-              withdrawComplete: false,
-              doneDepositProcessing: false,
-              transferToOwnDone: false
-            })
+          close={() => this.setState({
+            isModalShowing: false,
+            transferToOwn: false,
+            transferring: false,
+            transferred: false,
+            openDepositForm: false,
+            processingDeposit: false,
+            withdrawComplete: false,
+            doneDepositProcessing: false,
+            transferToOwnDone: false
+          })
           }
           component={modalProps.component || null}
           title={modalProps.title || null}
           showCloseButton={modalProps.showCloseButton || false}
         />
-        <StatusBar backgroundColor='blue' />
+        <StatusBar backgroundColor="blue" />
         <View style={{ height: '30%' }}>
           <Header topHeader={this.renderTopHeader} />
         </View>

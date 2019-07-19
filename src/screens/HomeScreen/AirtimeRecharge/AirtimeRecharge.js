@@ -117,7 +117,7 @@ const AirtimeRecharge = ({
             allowFontScaling
             style={{
               fontSize: 17,
-              marginTop: '-2%',
+              marginTop: '2%',
               // top: 0,
               flexGrow: 1,
               color: 'rgb(0, 58, 238)'
@@ -133,7 +133,7 @@ const AirtimeRecharge = ({
               color: 'rgba(35, 31,32, 0.74)'
             }}
           >
-            Instant recharge after 1 week
+            Instant recharge after 3 months
           </Text>
         </View>
         <TouchableOpacity style={{ justifyContent: 'flex-start', flexGrow: 1 }}>
