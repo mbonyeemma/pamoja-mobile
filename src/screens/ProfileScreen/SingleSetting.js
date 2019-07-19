@@ -1,16 +1,23 @@
-import React from 'react';
-import { View, Text } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import React from "react";
+import { View, Text, Dimensions } from "react-native";
+import Icon from "react-native-vector-icons/MaterialIcons";
+
+const { width } = Dimensions.get("screen");
 
 const SingleSetting = ({ title, leftIcon, styles }) => (
-  <View style={[{ flexDirection: 'row', height: 50, top: '2%', width: '100%' }, styles]}>
-    <View style={{ width: '10%', justifyContent: 'center' }}>
+  <View
+    style={[
+      { flexDirection: "row", height: width > 320 ? 60 : 50, top: "2%", width: "100%" },
+      styles
+    ]}
+  >
+    <View style={{ width: "10%", justifyContent: "center" }}>
       {leftIcon ? (
         <Icon
           name={leftIcon}
-          size={20}
+          size={width > 320 ? 25 : 20}
           color="rgb(167, 165, 166)"
-          style={{ alignSelf: 'flex-start' }}
+          style={{ alignSelf: "flex-start" }}
         />
       ) : (
         <View style={{ width: 20 }} />
@@ -19,8 +26,8 @@ const SingleSetting = ({ title, leftIcon, styles }) => (
     <View
       style={{
         borderBottomWidth: 1,
-        borderBottomColor: 'rgba(0,0,0,.095)',
-        justifyContent: 'center',
+        borderBottomColor: "rgba(0,0,0,.095)",
+        justifyContent: "center",
         flexGrow: 1
       }}
     >
@@ -29,10 +36,10 @@ const SingleSetting = ({ title, leftIcon, styles }) => (
 
     <View
       style={{
-        width: '10%',
+        width: "10%",
         borderBottomWidth: 1,
-        borderBottomColor: 'rgba(0,0,0,.125)',
-        justifyContent: 'center'
+        borderBottomColor: "rgba(0,0,0,.125)",
+        justifyContent: "center"
       }}
     >
       <Icon name="keyboard-arrow-right" size={20} color="rgb(167, 165, 166)" />

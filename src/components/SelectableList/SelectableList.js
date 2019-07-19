@@ -34,7 +34,7 @@ class SelectableList extends React.Component {
           <View style={{ width: "50%", borderColor: "orange" }}>
             <Text
               allowFontScaling
-              style={{ fontSize: 11, marginLeft: "10%", width: "50%" }}
+              style={{ fontSize: 11 }}
             >
               {title}
             </Text>

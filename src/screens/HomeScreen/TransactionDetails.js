@@ -12,7 +12,7 @@ const TransactionDetails = ({
   status = 'pending',
   description,
   time,
-  first,
+  // first,
   // last,
   amount
 }) => {
@@ -40,7 +40,7 @@ const TransactionDetails = ({
         width: '100%',
         flexDirection: 'row',
         height: width > 320 ? 60 : '25%',
-        marginTop: first ? 0 : 4,
+        // marginTop: first ? 0 : 4,
         flex: 1
       }}
     >
