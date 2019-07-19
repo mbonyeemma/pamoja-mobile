@@ -31,6 +31,7 @@ import { items } from "../../components/SelectableList/SelectableList";
 import Advert from "../../../assets/advert.png";
 
 import theme from "../../constants/theme";
+import CashReward from "./CashReward/CashReward";
 
 const { width, height } = Dimensions.get("screen");
 
@@ -53,6 +54,12 @@ export default class Home extends Component {
     list: items,
     subscription: true
   };
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.renderModal("Reward");
+    }, 50);
+  }
 
   switchSelectedTvSubscription = index => {
     const { list } = this.state;
@@ -180,6 +187,17 @@ export default class Home extends Component {
             ),
             showCloseButton: true,
             fullWidth: true
+          },
+          isModalShowing: true
+        });
+        break;
+      case "Reward":
+        newProps = this.setState({
+          modalProps: {
+            height: "30%",
+            component: <CashReward />,
+            showCloseButton: true,
+            fullWidth: false
           },
           isModalShowing: true
         });
@@ -527,11 +545,16 @@ export default class Home extends Component {
           />
 
           <View
-            style={{ width: "100%", alignItems: "center", height: width > 320 ? 90 : 70, marginTop: 10 }}
+            style={{
+              width: "100%",
+              alignItems: "center",
+              height: width > 320 ? 90 : 70,
+              marginTop: 10
+            }}
           >
             <Image
               source={Advert}
-              style={{ width: "90%", height: '100%', borderRadius: 10 }}
+              style={{ width: "90%", height: "100%", borderRadius: 10 }}
               resizeMethod="auto"
               resizeMode="cover"
             />
@@ -544,7 +567,7 @@ export default class Home extends Component {
                 borderTopLeftRadius: 30,
                 paddingLeft: "5%",
                 paddingRight: "5%",
-                marginTop: 10,
+                marginTop: 10
                 // marginTop: width > 320 ? "2%" : 0
               },
               Styles.scrollShadow
@@ -569,7 +592,9 @@ export default class Home extends Component {
               >
                 Recent Transactions
               </Text>
-              <TouchableOpacity onPress={() => this.props.navigation.navigate('Transactions')}>
+              <TouchableOpacity
+                onPress={() => this.props.navigation.navigate("Transactions")}
+              >
                 <Text
                   allowFontScaling
                   style={{ color: "rgb(0,58,238)", fontSize: 16 }}
