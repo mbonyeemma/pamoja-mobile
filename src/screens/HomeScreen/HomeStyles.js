@@ -14,10 +14,10 @@ export default StyleSheet.create({
   scrollShadow: {
     shadowColor: '#eee',
     shadowOffset: {
-      height: 35,
+      height: 15,
       width: 0
     },
-    shadowOpacity: 0.3,
+    // shadowOpacity: 0.3,
     shadowRadius: 3,
     elevation: 2,
   }

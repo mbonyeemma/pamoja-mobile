@@ -31,7 +31,9 @@ const AirtimeRecharge = ({
           justifyContent: "center",
           alignItems: "center",
           borderColor: "green",
-          flexDirection: "row"
+          flexDirection: "row",
+          marginLeft: 20,
+          // marginRight: 20
           // top: height >= 720 ? 15 : 10
         }}
       >

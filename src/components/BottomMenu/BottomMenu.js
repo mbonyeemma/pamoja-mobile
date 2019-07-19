@@ -6,18 +6,7 @@ import Accounts from '../../screens/Accounts/Accounts';
 import TransactionHistory from '../../screens/TransactionHistory';
 import Homescreen from '../../screens/HomeScreen/Home';
 import ProfileScreen from '../../screens/ProfileScreen/ProfileScreen';
-
-const SettingsScreen = () => (
-  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-    <Text>Settings!</Text>
-  </View>
-);
-
-const BarCode = () => (
-  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-    <Text>BarCode!</Text>
-  </View>
-);
+import QrCodeScreen from '../QrCode/QrCode';
 
 // config for the menu bar
 export default createBottomTabNavigator(
@@ -49,7 +38,7 @@ export default createBottomTabNavigator(
       }
     },
     BarCode: {
-      screen: BarCode,
+      screen: QrCodeScreen,
       navigationOptions: {
         title: '',
         tabBarIcon: ({ tintColor }) => (
