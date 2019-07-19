@@ -32,6 +32,8 @@ const modal = ({
         onBackButtonPress={close}
         onBackdropPress={close}
         backdropOpacity={backdropOpacity}
+        animationInTiming={100}
+        animationOutTiming={100}
       >
         <View style={{ flex: 1, justifyContent: 'flex-end' }}>
           {fullWidth ? (
@@ -48,7 +50,7 @@ const modal = ({
                 {rest.title || ''}
               </Text>
               {showCloseButton && (
-                <Icon name="md-close" color="white" size={20} onPress={close} />
+                <Icon name='md-close' color='white' size={20} onPress={close} />
               )}
             </View>
           ) : null}
@@ -63,7 +65,8 @@ const modal = ({
                 borderBottomLeftRadius: 20,
                 borderBottomRightRadius: 20
               },
-              newStyles, styles
+              newStyles,
+              styles
             ]}
           >
             {component}

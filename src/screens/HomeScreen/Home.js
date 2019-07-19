@@ -29,6 +29,10 @@ import WithdrawalModal from "./Withdrawals/WithdrawalModal";
 import TvModal from "./Tv/TvModal";
 import { items } from "../../components/SelectableList/SelectableList";
 import Advert from "../../../assets/advert.png";
+import LoanRequest from "./Loans/LoanRequest";
+import LoanPendingApprovals from "./Loans/LoanPendingApprovals";
+import LoanAmountField from "./Loans/LoanAmountField";
+import StarTimesDetails from "./UtilityPayments/StarTimesDetails";
 
 import theme from "../../constants/theme";
 import CashReward from "./CashReward/CashReward";
@@ -43,6 +47,7 @@ export default class Home extends Component {
       modalProps: true,
       prepaid: false
     },
+    loanRequestList: false,
     isModalShowing: false,
     transferToOwn: false,
     transferring: false,
@@ -98,7 +103,8 @@ export default class Home extends Component {
 
   renderModal = title => {
     let newProps = null;
-    const { list, subscription } = this.state;
+    const { list, subscription, prepaid } = this.state;
+    const computedHeight = height >= 720 ? '80%' : '90%';
     // eslint-disable-next-line default-case
     switch (title) {
       case "Withdraw":
@@ -165,10 +171,49 @@ export default class Home extends Component {
           isModalShowing: true
         });
         break;
+      case "LoanRequest":
+        newProps = this.setState({
+          modalProps: {
+            height: computedHeight,
+            component: (
+              <LoanPendingApprovals
+                approve={() =>
+                  this.setState({}, () => this.renderModal("LoanApprove"))
+                }
+              />
+            )
+          },
+          isModalShowing: true,
+          title: "Loan Request",
+          showCloseButton: true
+        });
+        break;
+      case "LoanApprove":
+        newProps = this.setState({
+          modalProps: {
+            height: computedHeight,
+            component: (
+              <LoanAmountField
+                onDone={() => this.setState({ isModalShowing: false })}
+              />
+            )
+          },
+          isModalShowing: true
+        });
+        break;
+      case "Dstv":
+        newProps = this.setState({
+          modalProps: {
+            height: computedHeight,
+            component: <StarTimesDetails />
+          },
+          isModalShowing: true
+        });
+        break;
       case "Airtime":
         newProps = this.setState({
           modalProps: {
-            height: height >= 720 ? "80%" : "90%",
+            height: computedHeight,
             component: this.renderAirtimeRechargeModal()
           },
           isModalShowing: true
@@ -200,6 +245,24 @@ export default class Home extends Component {
             fullWidth: false
           },
           isModalShowing: true
+        });
+        break;
+      case "Loan":
+        newProps = this.setState({
+          modalProps: {
+            //height: '35%',
+            height: height >= 720 ? "80%" : "90%",
+            component: (
+              <LoanRequest
+                proceed={() =>
+                  this.setState({}, () => this.renderModal("LoanRequest"))
+                }
+              />
+            )
+          },
+          isModalShowing: true,
+          title: "Loan Request",
+          showCloseButton: true
         });
         break;
     }
@@ -448,8 +511,6 @@ export default class Home extends Component {
 
   render() {
     const { isModalShowing, modalProps } = this.state;
-
-    this.renderNextModals();
     return (
       <View
         style={{
@@ -463,17 +524,7 @@ export default class Home extends Component {
           styles={modalProps}
           showing={isModalShowing}
           close={() =>
-            this.setState({
-              isModalShowing: false,
-              transferToOwn: false,
-              transferring: false,
-              transferred: false,
-              openDepositForm: false,
-              processingDeposit: false,
-              withdrawComplete: false,
-              doneDepositProcessing: false,
-              transferToOwnDone: false
-            })
+            this.setState({ isModalShowing: false, loanRequestList: false })
           }
           component={modalProps.component || null}
           title={modalProps.title || null}
@@ -607,7 +658,6 @@ export default class Home extends Component {
             {fixture.map((item, index) => (
               <View style={{ height: 60 }} key={Math.random()}>
                 <TransactionDetail
-                  // key={Math.random()}
                   status={item.status}
                   description={item.description}
                   time={item.time}
