@@ -11,6 +11,7 @@ export default ({
   status,
   percentage = '40%',
   progressColor,
+  parentColor,
   close,
   dueDate = false,
   parentPercentage = '60%'
@@ -73,7 +74,7 @@ export default ({
           progressColor={progressColor}
           style={{ height: 10, marginTop: 5 }}
           showText={false}
-          background={theme.colors.darkerGray}
+          background={parentColor || theme.colors.darkerGray}
         />
       </View>
       <View>
