@@ -271,20 +271,6 @@ export default class Home extends Component {
   withdraw = () => <Text>This is withdraw</Text>;
 
   deposit = () => <Text>This is deposit</Text>;
-  renderLoanModals = () => {
-    let newProps;
-    const { loanRequestList, isModalShowing } = this.state;
-    if (loanRequestList && !isModalShowing) {
-      newProps = this.setState({
-        modalProps: {
-          height: height >= 720 ? '80%' : '90%',
-          component: <LoanPendingApprovals label={`loan`} />
-        },
-        isModalShowing: true
-      });
-    }
-    return newProps;
-  };
 
   renderNextModals = () => {
     const {
@@ -509,7 +495,6 @@ export default class Home extends Component {
 
   render() {
     const { isModalShowing, modalProps } = this.state;
-    //this.renderLoanModals();
     return (
       <View
         style={{
