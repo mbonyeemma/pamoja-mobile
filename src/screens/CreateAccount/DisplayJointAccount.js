@@ -12,15 +12,20 @@ const { accountMembers } = config;
 const DisplayJointAccount = ({ title, label, data }) => {
   return (
     <ScrollView style={styles.jointMembersContainer}>
-      <View style={styles.addMembersContainer}>
-        <Text style={styles.membersText}>{label}</Text>
+      <View style={[styles.addMembersContainer, { paddingLeft: '2%' }]}>
+        <Text style={[styles.membersText, { fontSize: 10 }]}>{label}</Text>
         <TouchableOpacity
           onPress={() => alert('adding member to the ' + title)}
         >
           <Text style={styles.addBtnText}>Add</Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.membersPicturesContainer}>
+      <View
+        style={[
+          styles.membersPicturesContainer,
+          { paddingLeft: '4%', paddingRight: '4%' }
+        ]}
+      >
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}

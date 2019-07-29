@@ -7,7 +7,7 @@ import theme from '../../constants/theme';
 import styles from './AccountProfilePictureStyles';
 
 const AccountProfilePicture = ({ name }) => (
-  <View style={styles.profilePictureContainer}>
+  <View style={[styles.profilePictureContainer, {}]}>
     <TouchableOpacity
       onPress={() => alert('remove the member from joint account')}
     >
@@ -15,16 +15,18 @@ const AccountProfilePicture = ({ name }) => (
         <Image
           source={profile}
           style={styles.profileImage}
-          resizeMode='contain'
+          resizeMode="contain"
         />
         <Icon
-          name='md-close-circle'
+          name="md-close-circle"
           size={25}
-          color={theme.colors.gray}
+          color={theme.colors.red}
           style={styles.removeIconButton}
         />
       </View>
-      <Text style={styles.labelText}>{name}</Text>
+      <Text alignSelf="center" style={styles.labelText}>
+        {name}
+      </Text>
     </TouchableOpacity>
   </View>
 );

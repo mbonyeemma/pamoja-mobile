@@ -34,11 +34,13 @@ class CreateAccount extends Component {
     <ActionTopHeader complete={() => this.setState({ showModal: true })} />
   );
 
-  bottomHeader = <ActionBottomHeader bottomText='Create New Account' />;
+  bottomHeader = <ActionBottomHeader bottomText="Create New Account" />;
 
   showScreen = id => this.setState({ mode: id });
 
-  renderModal = () => <SuccessModal close={() => this.setState({ showModal: false })} />;
+  renderModal = () => (
+    <SuccessModal close={() => this.setState({ showModal: false })} />
+  );
 
   render() {
     const { mode, showModal } = this.state;
@@ -103,17 +105,17 @@ class CreateAccount extends Component {
           </ScrollView>
         </View>
         {mode === 2 ? (
-          <View style={styles.titleContainer}>
-            <Icon name='md-contacts' size={30} color={theme.colors.white} />
+          <View style={[styles.titleContainer, { padding: 8 }]}>
+            <Icon name="md-contacts" size={15} color={theme.colors.white} />
             <View style={styles.titleTextContainer}>
-              <Text style={styles.titleText}>{title}</Text>
-              <Text style={styles.groupText}>for group savings</Text>
+              <Text style={styles.titleText}>{`${title}:`}</Text>
+              <Text style={styles.groupText}>{`for group savings`}</Text>
             </View>
           </View>
         ) : null}
 
         <View style={styles.inputContainer}>
-          <Icon name='md-person' size={35} color={theme.colors.gray} />
+          <Icon name="md-person" size={35} color={theme.colors.gray} />
           <View style={styles.textInputContainer}>
             <Text style={styles.accountNameText}>Account Name</Text>
             <TextInput style={styles.accountNameTextInput} />
@@ -122,7 +124,7 @@ class CreateAccount extends Component {
         {mode === 2 ? (
           <DisplayJointAccount
             title={title}
-            label='Account Members'
+            label="Account Members"
             data={adminRulesData}
           />
         ) : null}

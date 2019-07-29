@@ -76,10 +76,12 @@ export default StyleSheet.create({
     alignItems: 'center'
   },
   jointMembersContainer: {
-    width: '100%',
+    // width: '10%',
     marginTop: '2%',
+    paddingTop: 25,
     height: '20%',
-    borderTopColor: theme.colors.darkerGray
+    borderTopColor: theme.colors.darkGray,
+    borderTopWidth: 1
   },
   addMembersContainer: {
     flexDirection: 'row',
@@ -99,8 +101,8 @@ export default StyleSheet.create({
   },
   membersPicturesContainer: {
     width: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
+    // justifyContent: 'center',
+    // alignItems: 'center',
     marginTop: '4%'
   },
   regularBaseFonted: {

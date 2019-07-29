@@ -7,7 +7,7 @@ export default {
     { id: 5, name: 'Current Account', description: 'Current' }
   ],
   accountMembers: [
-    { id: 1, name: 'Me' },
+    { id: 1, name: 'Hussein' },
     { id: 2, name: 'Timo' },
     { id: 3, name: 'Charlie' },
     { id: 4, name: 'Andrea' },
