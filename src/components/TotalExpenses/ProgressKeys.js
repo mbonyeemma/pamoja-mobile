@@ -28,7 +28,7 @@ const ProgressKeys = () => (
               flexDirection: 'row',
               justifyContent: 'center',
               alignItems: 'center',
-              marginRight: '10%'
+              marginRight: '20%'
             }}
           >
             <View

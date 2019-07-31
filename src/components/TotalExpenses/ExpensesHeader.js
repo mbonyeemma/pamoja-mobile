@@ -15,7 +15,7 @@ const ExpensesHeader = () => (
       justifyContent: 'space-between',
       alignItems: 'center',
       paddingTop: 10,
-      borderTopColor: theme.colors.gray,
+      borderTopColor: '#ddd',
       borderTopWidth: 1
     }}
   >
@@ -50,7 +50,7 @@ const ExpensesHeader = () => (
         This Month
       </Text>
       <TouchableOpacity onPress={() => alert('show previous months')}>
-        <Icon name='md-arrow-dropdown' color={`gray`} size={25} />
+        <Icon name="md-arrow-dropdown" color={`gray`} size={25} />
       </TouchableOpacity>
     </View>
   </View>

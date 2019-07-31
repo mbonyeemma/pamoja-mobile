@@ -11,6 +11,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Header from '../../components/Header/Header';
 import TotalExpenses from '../../components/TotalExpenses/TotalExpenses';
 import AccountHolder from '../../components/AccountHolder/AccountHolder';
+import TransactionItem from '../../components/TransactionItem/TransactionItem';
 import AccountDetailsHeader from '../../components/ActionHeader/AccountDetailsHeader';
 import Card from '../../components/Card/Card';
 
@@ -21,7 +22,14 @@ class CurrentAccount extends Component {
 
   render() {
     return (
-      <View style={{ display: 'flex', flex: 1, height: '100%' }}>
+      <View
+        style={{
+          display: 'flex',
+          flex: 1,
+          height: '100%',
+          backgroundColor: theme.colors.darkGray
+        }}
+      >
         <View style={{ height: '15%' }}>
           <Header
             style={{
@@ -39,18 +47,22 @@ class CurrentAccount extends Component {
               height: 130,
               backgroundColor: theme.colors.blue
             }}
-            accountName='Tusasanya Spending'
-            accountType='Current Account'
-            time='25 mins ago'
-            amount='40,300'
+            accountName="Tusasanya Spending"
+            accountType="Current Account"
+            time="25 mins ago"
+            amount="40,300"
           />
         </View>
-        <ScrollView style={{ display: 'flex', width: '100%' }}>
-          <TotalExpenses />
+        <ScrollView
+          style={{
+            display: 'flex',
+            width: '100%',
+            marginTop: 100
+          }}
+        >
+          <TotalExpenses showText={true} />
           <View
             style={{
-              // borderTopColor: 'gray',
-              // borderTopWidth: 1,
               width: '100%'
             }}
           >
@@ -70,35 +82,45 @@ class CurrentAccount extends Component {
             {[
               {
                 id: 1,
-                name: 'Timo Loan for rent..',
-                status: '25 Mins ago',
-                transaction: true
+                description: 'Joan Repairs',
+                time: '25 mins ago',
+                amount: '250,000,000',
+                status: 'Pending'
               },
               {
                 id: 2,
-                name: 'Charlie TopUp bal...',
-                status: '2 Days',
-                transaction: true
+                description: 'Charlie Topup balance',
+                time: '2 Days',
+                amount: '50,000',
+                status: 'Cancelled'
               },
               {
                 id: 3,
-                name: 'Andrea Extra fee',
-                status: '22 Mar',
-                transaction: true
+                description: 'Andrea Extra fee',
+                time: '22 Dec',
+                amount: '4,550,000',
+                status: 'Completed'
               },
               {
                 id: 4,
-                name: 'Brian Office rent',
-                status: '19 Dec',
-                transaction: true
+                description: 'Brian Office rent',
+                time: '19 Dec',
+                amount: '450,000',
+                status: 'Pending'
               }
-            ].map(item => (
-              <AccountHolder
-                key={item.id}
-                name={item.name}
-                status={item.status}
-                transaction={item.transaction}
-              />
+            ].map(({ description, amount, status, time }) => (
+              <View
+                style={{ paddingLeft: '5%', paddingRight: '5%' }}
+                key={Math.random()}
+              >
+                <TransactionItem
+                  status={status}
+                  description={description}
+                  time={time}
+                  amount={amount}
+                  trimmed={true}
+                />
+              </View>
             ))}
           </View>
           <View

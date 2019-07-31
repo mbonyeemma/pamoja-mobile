@@ -8,19 +8,18 @@ import ExpensesFooter from './ExpensesFooter';
 
 import theme from '../../constants/theme';
 
-const TotalExpenses = () => (
+const TotalExpenses = ({ showText = false, amount = '35,000,000' }) => (
   <View
     style={{
       justifyContent: 'center',
       alignItems: 'center',
       paddingBottom: 10,
-      width: '90%',
       margin: 20,
       height: 120
     }}
   >
     <ExpensesHeader />
-    <ProgressExpenses />
+    <ProgressExpenses showText={showText} amount={amount} />
     <ProgressKeys />
     <ExpensesFooter />
   </View>

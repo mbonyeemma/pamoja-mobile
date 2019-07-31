@@ -7,6 +7,7 @@ import Profile from '../../../assets/profilepic.png';
 import AccountHolder from '../../components/AccountHolder/AccountHolder';
 import ActionBottomHeader from '../../components/ActionHeader/ActionBottomHeader';
 import TransactionDetail from '../../components/TransactionDetail/TransactionDetail';
+import TransactionItem from '../../components/TransactionItem/TransactionItem';
 
 import theme from '../../constants/theme';
 
@@ -30,12 +31,12 @@ class TransactionHistory extends Component {
   topHeader = (
     <View style={styles.topHeaderContainer}>
       <View style={styles.headerImageContainer}>
-        <Image source={Profile} style={styles.imageStyles} resizeMode='cover' />
+        <Image source={Profile} style={styles.imageStyles} resizeMode="cover" />
       </View>
     </View>
   );
 
-  bottomHeader = <ActionBottomHeader bottomText='Transaction History' />;
+  bottomHeader = <ActionBottomHeader bottomText="Transaction History" />;
 
   changeData = () => {
     const { mode } = this.state;
@@ -82,7 +83,7 @@ class TransactionHistory extends Component {
             <Text style={styles.sortText}>Sort</Text>
             <Icon
               style={{ paddingLeft: '1%' }}
-              name='md-arrow-dropdown'
+              name="md-arrow-dropdown"
               size={20}
               color={theme.colors.black}
               onPress={() => alert('dropdown list')}
@@ -111,33 +112,54 @@ class TransactionHistory extends Component {
         <ScrollView style={styles.scrollViewContainer}>
           <View>
             {data.map(
-              ({ id, name, status, transaction, transactionDetails }) => {
+              ({
+                id,
+                name,
+                status,
+                transaction,
+                transactionDetails,
+                time,
+                amount
+              }) => {
                 const { transactionStatus } = transaction;
                 return (
-                  <View key={id}>
-                    <View style={{ paddingRight: '5%', paddingLeft: '5%' }}>
-                      <AccountHolder
-                        name={name}
-                        transactionDetails={transactionDetails}
-                        status={status}
-                        transaction={transaction.status}
-                        toggleItemDetails={() =>
-                          this.toggleItemDetails(transaction.id)
-                        }
-                        iconDirection={
-                          showingDetails === transaction.id
-                            ? 'arrowUp'
-                            : 'arrowDown'
-                        }
-                      />
-                    </View>
-                    <View>
-                      {transactionStatus &&
-                      showingDetails === transaction.id ? (
-                        <TransactionDetail transaction={transaction} />
-                      ) : null}
-                    </View>
+                  <View
+                    key={Math.random()}
+                    style={{ paddingLeft: '5%', paddingRight: '5%' }}
+                  >
+                    <TransactionItem
+                      key={id}
+                      status={status}
+                      description={name}
+                      time={time}
+                      amount={amount}
+                      trimmed={true}
+                    />
                   </View>
+                  // <View key={id}>
+                  //   <View style={{ paddingRight: '5%', paddingLeft: '5%' }}>
+                  //     <AccountHolder
+                  //       name={name}
+                  //       transactionDetails={transactionDetails}
+                  //       status={status}
+                  //       transaction={transaction.status}
+                  //       toggleItemDetails={() =>
+                  //         this.toggleItemDetails(transaction.id)
+                  //       }
+                  //       iconDirection={
+                  //         showingDetails === transaction.id
+                  //           ? 'arrowUp'
+                  //           : 'arrowDown'
+                  //       }
+                  //     />
+                  //   </View>
+                  //   <View>
+                  //     {transactionStatus &&
+                  //     showingDetails === transaction.id ? (
+                  //       <TransactionDetail transaction={transaction} />
+                  //     ) : null}
+                  //   </View>
+                  // </View>
                 );
               }
             )}

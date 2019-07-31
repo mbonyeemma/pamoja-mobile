@@ -1,43 +1,70 @@
 import React, { Component } from 'react';
-import { Text, View, StatusBar, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
+import {
+  Text,
+  View,
+  StatusBar,
+  ScrollView,
+  TouchableOpacity,
+  Dimensions
+} from 'react-native';
 
 import Header from '../../components/Header/Header';
 import Card from '../../components/Card/Card';
 import AccountHolder from '../../components/AccountHolder/AccountHolder';
 import AccountDetailsHeader from '../../components/ActionHeader/AccountDetailsHeader';
-import TransactionDetail from '../../components/TransactionDetail/TransactionDetail';
+import TransactionItem from '../../components/TransactionItem/TransactionItem';
 import Modal from '../../components/Modal/Modal';
 
 import theme from '../../constants/theme';
 
-const {width} = Dimensions.get('screen');
+const { width } = Dimensions.get('screen');
 class LimboAccount extends Component {
   state = {
     showModal: false,
     showingDetails: undefined
   };
 
-  
-
   renderModalDetails = (
     <>
-      <View style={{ padding: '5%', width: '100%', height: '100%', display: 'flex', marginTop: '5%' }}>
+      <View
+        style={{
+          padding: '5%',
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          marginTop: '5%'
+        }}
+      >
         <Text allowFontScaling style={{ fontSize: 9.8 }}>
-<Text style={{fontWeight: 'bold'}}>Note:</Text>
-{' '}
-According to the
-{' '}
-<Text style={{color: 'blue'}}>admin rules</Text>
-,2 admins required to make a
-{'\n'}
-member an admin. 1 admin required to remove a member
-</Text>
+          <Text style={{ fontWeight: 'bold' }}>Note:</Text> According to the{' '}
+          <Text style={{ color: 'blue' }}>admin rules</Text>
+          ,2 admins required to make a{'\n'}
+          member an admin. 1 admin required to remove a member
+        </Text>
         <View style={{ marginLeft: -5 }}>
-          <AccountHolder name="Louis Musanje" status="Mbuya Parents Association" />
+          <AccountHolder
+            name="Louis Musanje"
+            status="Mbuya Parents Association"
+          />
         </View>
-        <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', marginTop: '3%' }}>
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'flex-end',
+            marginTop: '3%'
+          }}
+        >
           <TouchableOpacity onPress={() => alert('removing admin')}>
-            <Text style={{ color: 'rgba(0,0,0,.5)', marginRight: '5%', fontSize: 12 }}>Remove</Text>
+            <Text
+              style={{
+                color: 'rgba(0,0,0,.5)',
+                marginRight: '5%',
+                fontSize: 12
+              }}
+            >
+              Remove
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => alert('making admin')}>
             <Text style={{ color: 'blue', fontSize: 12 }}>Make Admin</Text>
@@ -45,11 +72,11 @@ member an admin. 1 admin required to remove a member
         </View>
       </View>
     </>
-  )
+  );
 
   topHeader = <AccountDetailsHeader navigation={this.props.navigation} />;
 
-  toggleItemDetails = (id) => {
+  toggleItemDetails = id => {
     const { showingDetails } = this.state;
     if (id === showingDetails) {
       return this.setState({ showingDetails: undefined });
@@ -61,32 +88,40 @@ member an admin. 1 admin required to remove a member
 
   render() {
     const { showModal, showingDetails } = this.state;
-    // const child = this.renderModalDetails();
     return (
-      <View style={{ display: 'flex', flex: 1, height: '100%' }}>
+      <View
+        style={{
+          display: 'flex',
+          flex: 1,
+          height: '100%',
+          backgroundColor: theme.colors.darkGray
+        }}
+      >
         <Modal
           fullWidth
-          styles={{ height: width > 320 ? '28%' : '37%'  }}
+          styles={{ height: width > 320 ? '28%' : '37%' }}
           component={this.renderModalDetails}
           showing={showModal}
           close={() => this.setState({ showModal: false })}
         />
         <View style={{ height: '15%' }}>
-          <Header
-            style={{
-              borderWidth: 0
-            }}
-            topHeader={this.topHeader}
-          />
+          <Header topHeader={this.topHeader} />
         </View>
         <StatusBar backgroundColor="blue" />
-        <View style={{ zIndex: 99, position: 'absolute', marginTop: '18%', width: '100%' }}>
+        <View
+          style={{
+            zIndex: 99,
+            position: 'absolute',
+            marginTop: '18%',
+            width: '100%'
+          }}
+        >
           <Card
             whiteCard
             style={{
               height: 130,
               color: theme.colors.black,
-              backgroundColor: theme.colors.white,
+              backgroundColor: theme.colors.white
             }}
             accountName="Virtual Cash"
             accountType="Limbo Account"
@@ -95,10 +130,16 @@ member an admin. 1 admin required to remove a member
             amount="2,471,900"
           />
         </View>
-        <ScrollView style={{ display: 'flex', width: '100%', marginTop: width > 320 ? '35%' : '42%' }}>
+        <ScrollView
+          style={{
+            display: 'flex',
+            width: '100%',
+            marginTop: width > 320 ? '35%' : '42%'
+          }}
+        >
           <View
             style={{
-              borderBottomColor: theme.colors.gray,
+              borderBottomColor: '#ddd',
               borderBottomWidth: 1,
               width: '100%',
               paddingBottom: 20
@@ -109,7 +150,6 @@ member an admin. 1 admin required to remove a member
                 flexDirection: 'row',
                 width: '100%',
                 marginBottom: 20,
-                // marginTop: 5,
                 justifyContent: 'space-between',
                 alignItems: 'center'
               }}
@@ -140,22 +180,29 @@ member an admin. 1 admin required to remove a member
             {[
               {
                 id: 1,
-                name: 'Timo Loan for rent..',
-                status: '25 Mins ago',
-                transaction: true
+                description: 'Timo Loan for renting items',
+                time: '25 Mins ago',
+                status: 'Completed',
+                amount: '350,000'
               },
               {
                 id: 2,
-                name: 'Andrea Extra fee',
-                status: '22 Mar',
-                transaction: true
+                status: 'Pending',
+                description: 'Andrea Extra fee',
+                time: '22 Mar',
+                amount: '250,000,000'
               }
-            ].map(item => (
-              <View key={item.id} style={{ paddingRight: '5%', paddingLeft: '5%' }}>
-                <AccountHolder
-                  name={item.name}
-                  status={item.status}
-                  transaction={item.transaction}
+            ].map(({ status, description, time, amount }) => (
+              <View
+                style={{ paddingLeft: '5%', paddingRight: '5%' }}
+                key={Math.random()}
+              >
+                <TransactionItem
+                  status={status}
+                  description={description}
+                  time={time}
+                  amount={amount}
+                  trimmed={true}
                 />
               </View>
             ))}
@@ -163,8 +210,6 @@ member an admin. 1 admin required to remove a member
 
           <View
             style={{
-              borderBottomColor: theme.colors.gray,
-              // borderBottomWidth: 1,
               width: '100%',
               paddingBottom: 20
             }}
@@ -204,9 +249,11 @@ member an admin. 1 admin required to remove a member
             </View>
             {[
               {
-                id: 11,
-                name: 'Brenda TP pay..',
-                status: '5 Mins ago',
+                id: 1,
+                name: 'Brenda TP payments',
+                time: '5 Mins ago',
+                amount: '140,000,000',
+                status: 'Pending',
                 transaction: {
                   id: 234435,
                   status: true,
@@ -223,8 +270,50 @@ member an admin. 1 admin required to remove a member
               },
               {
                 id: 2,
-                name: 'Kane Car repair...',
-                status: '23 Mar',
+                name: 'Kane Car repairs for the team',
+                time: '23 Mar',
+                amount: '500,000',
+                status: 'Completed',
+                transaction: {
+                  id: 120,
+                  status: true,
+                  transactionStatus: 'Pending',
+                  title: 'Kane Car repair charges',
+                  refId: 'Ref ID: 93774374',
+                  time: '19:00 . 23 Mar',
+                  transactionDate: '23 Mar',
+                  dueDate: 'Due Date: 23rd Jun 2019',
+                  from: 'Tusasanya Spending',
+                  to: 'Kane Wanyana',
+                  description: 'Car repairs'
+                }
+              },
+              {
+                id: 3,
+                name: 'karen payments to the team',
+                time: '25 Mins ago',
+                amount: '1,500,000',
+                status: 'Cancelled',
+                transaction: {
+                  id: 120,
+                  status: true,
+                  transactionStatus: 'Pending',
+                  title: 'Kane Car repair charges',
+                  refId: 'Ref ID: 93774374',
+                  time: '19:00 . 23 Mar',
+                  transactionDate: '23 Mar',
+                  dueDate: 'Due Date: 23rd Jun 2019',
+                  from: 'Tusasanya Spending',
+                  to: 'Kane Wanyana',
+                  description: 'Car repairs'
+                }
+              },
+              {
+                id: 4,
+                name: 'Agents payments to the team',
+                time: '1 Min ago',
+                amount: '25,500,000',
+                status: 'Pending',
                 transaction: {
                   id: 120,
                   status: true,
@@ -239,24 +328,47 @@ member an admin. 1 admin required to remove a member
                   description: 'Car repairs'
                 }
               }
-            ].map((item) => {
-              const { id, name, status, transaction } = item;
+            ].map(item => {
+              const { id, name, status, transaction, amount, time } = item;
               const { transactionStatus } = transaction;
               return (
-                <TouchableOpacity key={id} onPress={() => this.setState({ showModal: true })}>
-                  <View key={id} style={{ paddingRight: '5%', paddingLeft: '5%' }}>
+                <TouchableOpacity
+                  key={id}
+                  onPress={() => this.setState({ showModal: true })}
+                >
+                  <View
+                    style={{ paddingLeft: '5%', paddingRight: '5%' }}
+                    key={Math.random()}
+                  >
+                    <TransactionItem
+                      status={status}
+                      description={name}
+                      time={time}
+                      amount={amount}
+                      trimmed={true}
+                    />
+                  </View>
+                  {/* <View
+                    key={id}
+                    style={{ paddingRight: '5%', paddingLeft: '5%' }}
+                  >
                     <AccountHolder
                       name={name}
                       status={status}
                       transaction={transaction.status}
-                      toggleItemDetails={() => this.toggleItemDetails(transaction.id)
+                      toggleItemDetails={() =>
+                        this.toggleItemDetails(transaction.id)
                       }
-                      iconDirection={(showingDetails === transaction.id) ? 'arrowUp' : 'arrowDown'}
+                      iconDirection={
+                        showingDetails === transaction.id
+                          ? 'arrowUp'
+                          : 'arrowDown'
+                      }
                     />
                     {transactionStatus && showingDetails === transaction.id ? (
                       <TransactionDetail transaction={transaction} />
                     ) : null}
-                  </View>
+                  </View> */}
                 </TouchableOpacity>
               );
             })}

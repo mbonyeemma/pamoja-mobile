@@ -6,8 +6,9 @@ import BottomMenuScreen from '../components/BottomMenu/BottomMenu';
 import EditAccountScreen from './EditAccount';
 import CreateAccount from './CreateAccount';
 import Verification from './PhoneVerification';
-import AccountDetails from '../screens/AccountDetails/JointAccount';
-
+import AccountDetails from './AccountDetails';
+import LimboAccount from './LimboAccount';
+import CurrentAccount from './CurrentAccount';
 
 const navigator = createStackNavigator(
   {
@@ -17,10 +18,10 @@ const navigator = createStackNavigator(
     AccountDetails,
     SignIn: SignInNavigator,
     EditAccount: EditAccountScreen,
-    AccountDetails,
     CreateAccount,
     Verification,
-    AccountDetails
+    LimboAccount,
+    CurrentAccount
   },
   {
     defaultNavigationOptions: {
@@ -32,4 +33,3 @@ const navigator = createStackNavigator(
 );
 
 export default createAppContainer(navigator);
-

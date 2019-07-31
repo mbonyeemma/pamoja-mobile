@@ -3,17 +3,16 @@ import { View, Text } from 'react-native';
 
 import theme from '../../constants/theme';
 
-const ExpensesFooter = () => (
+const ExpensesFooter = ({ currencyCode = 'Ugx' }) => (
   <View
     style={{
       flexDirection: 'row',
+      alignItems: 'center',
       marginTop: 10,
       paddingBottom: 10,
-      borderBottomColor: theme.colors.gray,
+      borderBottomColor: '#ddd',
       borderBottomWidth: 1,
-      width: '100%',
-      // justifyContent: 'center',
-      alignItems: 'center'
+      width: '100%'
     }}
   >
     <Text
@@ -40,7 +39,7 @@ const ExpensesFooter = () => (
           color: theme.colors.lighterBlack
         }}
       >
-        Ugx
+        {currencyCode}
       </Text>
       <Text
         style={{

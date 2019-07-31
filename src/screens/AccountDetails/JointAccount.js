@@ -16,71 +16,45 @@ import AccountHolder from '../../components/AccountHolder/AccountHolder';
 import AccountDetailsHeader from '../../components/ActionHeader/AccountDetailsHeader';
 import Modal from '../../components/Modal/Modal';
 import OutstandingRequests from '../../components/Requests/Requests';
+import TransactionItem from '../../components/TransactionItem/TransactionItem';
+import AccountHeaderContent from './AccountHeaderContent';
 import RequestsData from './config';
-
 import theme from '../../constants/theme';
 
-width = Dimensions.get('screen').width;
+const { height, width } = Dimensions.get('screen');
+const jointAccountData = [
+  {
+    status: 'pending',
+    description: 'Me',
+    time: 'Cleared 96,000 of 800,000',
+    amount: 240000
+  },
+  {
+    status: 'pending',
+    description: 'Kiiza',
+    time: 'Cleared 96,000 of 800,000',
+    amount: 240000
+  },
+  {
+    status: 'pending',
+    description: 'Charles Bogere',
+    time: 'Cleared 96,000 of 800,000',
+    amount: 240000
+  },
+  {
+    status: 'pending',
+    description: 'Timo Bravo',
+    time: 'Cleared 96,000 of 800,000',
+    amount: 240000
+  }
+];
 
 class JointAccount extends Component {
-  state= {
+  state = {
     isModalShowing: false
-  }
+  };
 
   topHeader = <AccountDetailsHeader />;
-
-  headerContent = (
-    <View
-      style={{
-        // borderColor: 'red',
-        flexDirection: 'row',
-        width: '90%',
-        height: 30,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginLeft: 10,
-        marginRight: 10,
-        marginBottom: 10,
-        marginTop: 5
-      }}
-    >
-      <View
-        style={{
-          width: 20,
-          // height: ,
-          justifyContent: 'center',
-          borderColor: theme.colors.white,
-          borderWidth: 1,
-          backgroundColor: theme.colors.magento,
-          alignItems: 'center',
-          borderRadius: 100
-        }}
-      >
-        <Text
-          style={{
-            fontSize: 10,
-            fontFamily: theme.fonts.regular,
-            color: theme.colors.white
-          }}
-        >
-          3
-        </Text>
-      </View>
-      <View style={{ flex: 1, marginLeft: '3%' }}>
-        <TouchableOpacity onPress={() => this.setState({isModalShowing: true})}>
-          <Text
-            style={{
-              fontSize: theme.fonts.base,
-              fontFamily: theme.fonts.regular,
-              color: theme.colors.blue
-            }}
-          >
-            View Outstanding Approvals
-          </Text>
-        </TouchableOpacity>
-      </View>
-    </View>
-  );
 
   accountHolderTitle = (
     <View
@@ -115,16 +89,21 @@ class JointAccount extends Component {
     </View>
   );
 
-  showRequestsModalHandler = (
-    <OutstandingRequests requests={RequestsData} />
-  );
+  showRequestsModalHandler = <OutstandingRequests requests={RequestsData} />;
 
   render() {
     return (
-      <View style={{ display: 'flex', flex: 1, height: '100%' }}>
+      <View
+        style={{
+          display: 'flex',
+          flex: 1,
+          height: '100%',
+          backgroundColor: theme.colors.darkGray
+        }}
+      >
         <Modal
-          close={() => this.setState({isModalShowing: false})}
-          styles={{height: '75%'}}
+          close={() => this.setState({ isModalShowing: false })}
+          styles={{ height: '75%' }}
           showing={this.state.isModalShowing}
           component={<OutstandingRequests requests={RequestsData} />}
         />
@@ -151,51 +130,37 @@ class JointAccount extends Component {
               color: theme.colors.white,
               backgroundColor: theme.colors.black
             }}
-            accountName='Mbuya Parents Association'
-            accountType='Joint Account'
-            totalMembers='3'
-            time='25 Feb'
-            amount='23,700,500'
+            accountName="Mbuya Parents Association"
+            accountType="Joint Account"
+            totalMembers="3"
+            time="25 Feb"
+            amount="23,700,500"
           />
         </View>
         <ScrollView
-          style={{ display: 'flex', width: '100%', marginTop: width > 320 ? '28%' : '35%' }}
+          style={{
+            display: 'flex',
+            width: '100%',
+            marginTop: width > 320 ? '28%' : '35%'
+          }}
         >
-          {this.headerContent}
-          <TotalExpenses />
+          <AccountHeaderContent
+            openApprovalsModal={() => this.setState({ isModalShowing: true })}
+          />
+          <TotalExpenses showText={true} />
           {this.accountHolderTitle}
-          {[
-            {
-              id: 1,
-              name: 'Me',
-              status: 'Cleared 96,000 of 800,000',
-              user: true
-            },
-            {
-              id: 2,
-              name: 'Timo Bravo',
-              status: 'Cleared 23,000 of 800,000',
-              user: true
-            },
-            {
-              id: 3,
-              name: 'Charlie Bogere',
-              status: 'Cleared 750,000 of 800,000',
-              user: true
-            },
-            {
-              id: 4,
-              name: 'Kiiza Andrea',
-              status: 'Cleared 800,000 of 800,000',
-              user: false
-            }
-          ].map(item => (
-            <AccountHolder
-              key={item.id}
-              name={item.name}
-              status={item.status}
-              user={item.user}
-            />
+          {jointAccountData.map(({ description, status, time, user }) => (
+            <View
+              key={Math.random()}
+              style={{ paddingLeft: '5%', paddingRight: '5%' }}
+            >
+              <TransactionItem
+                status={status}
+                description={description}
+                time={time}
+                user={true}
+              />
+            </View>
           ))}
           <View
             style={{
@@ -226,15 +191,15 @@ class JointAccount extends Component {
           </View>
           <View
             style={{
-              borderTopColor: 'gray',
+              borderTopColor: '#ddd',
               borderTopWidth: 1,
               width: '100%'
             }}
           >
             <Text
               style={{
-                width: '90%',
-                marginLeft: 20,
+                width: '100%',
+                marginLeft: 30,
                 marginRight: 20,
                 marginBottom: 20,
                 marginTop: 20,
@@ -246,56 +211,48 @@ class JointAccount extends Component {
             </Text>
             {[
               {
-                id: 1,
-                name: 'Timo Loan for rent..',
-                status: '25 Mins ago',
-                transaction: true,
-                transactionDetails: {
-                  amount: 4500,
-                  position: 'Pending'
-                }
-              },
-              {
                 id: 2,
-                name: 'Charlie TopUp bal...',
-                status: '2 Days',
-                transaction: true,
-                transactionDetails: {
-                  amount: 4500,
-                  position: 'Pending'
-                }
+                description: 'Andrea Extra fee',
+                time: '21 Feb',
+                amount: '500,000',
+                status: 'Completed'
               },
               {
                 id: 3,
-                name: 'Andrea Extra fee',
-                status: '22 Mar',
-                transaction: true,
-                transactionDetails: {
-                  amount: 4500,
-                  position: 'Pending'
-                }
+                description: 'Andrea Extra fee',
+                time: '22 Mar',
+                amount: '4,000,000',
+                status: 'Cancelled'
               },
               {
                 id: 4,
-                name: 'Brian Office rent',
-                status: '19 Dec',
-                transaction: true,
-                transactionDetails: {
-                  amount: 4500,
-                  position: 'Pending'
-                }
+                description: 'Brian Office rent',
+                time: '19 Dec',
+                amount: '203,000,000',
+                status: 'Pending'
               }
-            ].map(item => (
+            ].map(({ description, time, status, amount }) => (
               <View
-                key={item.id}
+                key={Math.random()}
                 style={{ paddingLeft: '5%', paddingRight: '5%' }}
               >
-                <AccountHolder
-                  name={item.name}
-                  status={item.status}
-                  transaction={item.transaction}
+                <TransactionItem
+                  status={status}
+                  description={description}
+                  time={time}
+                  amount={amount}
                 />
               </View>
+              // <View
+              //   key={item.id}
+              //   style={{ paddingLeft: '5%', paddingRight: '5%' }}
+              // >
+              //   <AccountHolder
+              //     name={item.name}
+              //     status={item.status}
+              //     transaction={item.transaction}
+              //   />
+              // </View>
             ))}
           </View>
           <View

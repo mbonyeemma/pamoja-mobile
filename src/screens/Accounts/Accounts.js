@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import {
   View,
   StatusBar,
@@ -7,72 +7,76 @@ import {
   TouchableOpacity,
   Text,
   Dimensions
-} from "react-native";
-import Icon from "react-native-vector-icons/MaterialIcons";
-import Ionicon from "react-native-vector-icons/Ionicons";
-import AccountCard from "./Card";
-import Header from "../../components/Header/Header";
-// import camera from '../../../assets/camera.png';
-import Profile from "./female.png";
-import Swipeable from "react-native-swipeable";
+} from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import Ionicon from 'react-native-vector-icons/Ionicons';
+import AccountCard from './Card';
+import Header from '../../components/Header/Header';
+import Profile from './female.png';
+import Swipeable from 'react-native-swipeable';
 
 class Accounts extends Component {
   constructor(props) {
     super(props);
   }
 
-  width = Dimensions.get("screen").width;
+  width = Dimensions.get('screen').width;
 
   cards = [
     {
-      accountName: "Tusasanye Spending",
-      accountType: "Current account",
+      accountName: 'Tusasanye Spending',
+      accountType: 'Current account',
       totalMembers: 0,
-      time: "25 mins ago",
-      amount: "40,300",
-      style: { backgroundColor: "blue" }
+      time: '25 mins ago',
+      amount: '40,300',
+      style: { backgroundColor: 'blue' },
+      mode: 'current'
     },
     {
-      accountName: "Mbuya Parents Association",
-      accountType: "Joint Account",
+      accountName: 'Mbuya Parents Association',
+      accountType: 'Joint Account',
       totalMembers: 3,
-      time: "25 Feb",
-      amount: "23,700,523",
-      style: { backgroundColor: "black" }
+      time: '25 Feb',
+      amount: '23,700,523',
+      style: { backgroundColor: 'black' },
+      mode: 'joint'
     },
     {
-      accountName: "James Associates",
-      accountType: "Limbo Account",
+      accountName: 'James Associates',
+      accountType: 'Limbo Account',
       totalMembers: 100,
-      time: "30 Jan 2019",
-      amount: "1,800,050",
-      style: { backgroundColor: "rgb(13, 207, 218)" }
+      time: '30 Jan 2019',
+      amount: '1,800,050',
+      style: { backgroundColor: 'rgb(13, 207, 218)' },
+      mode: 'limbo'
     },
     {
-      accountName: "Isaac Associates",
-      accountType: "Fixed Account",
+      accountName: 'Isaac Associates',
+      accountType: 'Fixed Account',
       totalMembers: 0,
-      time: "1 Sept",
+      time: '1 Sept',
       amount: 0,
-      style: { backgroundColor: "rgb(238, 103, 35)" }
+      style: { backgroundColor: 'rgb(238, 103, 35)' },
+      mode: 'fixed'
     },
     {
-      accountName: "Fashion Custom",
-      accountType: "custom Account",
+      accountName: 'Fashion Custom',
+      accountType: 'custom Account',
       totalMembers: 0,
-      time: "Unknown",
-      amount: "140,300",
-      style: {}
+      time: 'Unknown',
+      amount: '140,300',
+      style: {},
+      mode: 'custom'
     }
   ];
 
   topHeaderComponent = (
     <View
       style={{
-        width: "100%",
-        height: "100%",
-        justifyContent: "center",
-        alignItems: "flex-end"
+        width: '100%',
+        height: '100%',
+        justifyContent: 'center',
+        alignItems: 'flex-end'
       }}
     >
       <View
@@ -80,16 +84,16 @@ class Accounts extends Component {
           width: this.width > 320 ? 45 : 35,
           height: this.width > 320 ? 45 : 35,
           // borderWidth: 1,
-          borderColor: "white",
+          borderColor: 'white',
           borderRadius: this.width > 320 ? 25 : 20,
-          alignItems: "center",
-          justifyContent: "center",
-          marginRight: "1%"
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginRight: '1%'
         }}
       >
         <Image
           source={Profile}
-          style={{ width: "98%", height: "98%", borderRadius: 50 }}
+          style={{ width: '98%', height: '98%', borderRadius: 50 }}
           resizeMode="cover"
         />
       </View>
@@ -99,28 +103,28 @@ class Accounts extends Component {
   bottomHeaderComponent = (
     <View
       style={{
-        width: "100%",
-        height: "100%",
-        alignItems: "flex-end",
-        display: "flex",
-        flexDirection: "row"
+        width: '100%',
+        height: '100%',
+        alignItems: 'flex-end',
+        display: 'flex',
+        flexDirection: 'row'
       }}
     >
       <View
         style={{
-          width: "80%",
-          height: "100%",
+          width: '80%',
+          height: '100%',
           left: 0,
-          justifyContent: "center",
-          marginLeft: "5%"
+          justifyContent: 'center',
+          marginLeft: '5%'
         }}
       >
         <Text
           allowFontScaling
           style={{
             fontSize: 20,
-            fontWeight: "bold",
-            color: "rgba(255,255,255,.7)"
+            fontWeight: 'bold',
+            color: 'rgba(255,255,255,.7)'
           }}
         >
           Pamoja Accounts
@@ -130,17 +134,17 @@ class Accounts extends Component {
         style={{
           width: this.width > 320 ? 30 : 20,
           height: this.width > 320 ? 30 : 20,
-          alignItems: "center",
-          justifyContent: "center",
+          alignItems: 'center',
+          justifyContent: 'center',
           borderRadius: 15,
-          position: "absolute",
-          backgroundColor: "rgb(66, 133, 244)",
-          bottom: "5%",
-          right: "2%"
+          position: 'absolute',
+          backgroundColor: 'rgb(66, 133, 244)',
+          bottom: '5%',
+          right: '2%'
         }}
       >
         <TouchableOpacity
-          onPress={() => this.props.navigation.navigate("CreateAccount")}
+          onPress={() => this.props.navigation.navigate('CreateAccount')}
         >
           <Icon
             name="add"
@@ -159,23 +163,39 @@ class Accounts extends Component {
     </View>
   );
 
+  gotoAccount = account => {
+    switch (account.toLowerCase()) {
+      case 'joint':
+        return this.props.navigation.navigate('AccountDetails');
+      case 'current':
+        return this.props.navigation.navigate('CurrentAccount');
+      case 'limbo':
+        return this.props.navigation.navigate('LimboAccount');
+      case 'fixed':
+        return alert('fixed');
+      case 'custom':
+      default:
+        return alert('custom');
+    }
+  };
+
   rightButtons = [
     <View
       style={{
-        height: "100%",
+        height: '100%',
         width: 47,
         // borderWidth: 1,
-        justifyContent: "center"
+        justifyContent: 'center'
       }}
     >
       <Icon
-        onPress={() => this.props.navigation.navigate("EditAccount")}
+        onPress={() => this.props.navigation.navigate('EditAccount')}
         name="edit"
         color="black"
         size={25}
         style={{
-          textAlign: "center",
-          backgroundColor: "#eee",
+          textAlign: 'center',
+          backgroundColor: '#eee',
           padding: 10,
           borderRadius: 50
         }}
@@ -183,20 +203,20 @@ class Accounts extends Component {
     </View>,
     <View
       style={{
-        height: "100%",
+        height: '100%',
         width: 47,
         // borderWidth: 1,
-        justifyContent: "center"
+        justifyContent: 'center'
       }}
     >
       <Icon
-        onPress={() => this.props.navigation.navigate("EditAccount")}
+        onPress={() => this.props.navigation.navigate('EditAccount')}
         name="lock"
         color="black"
         size={25}
         style={{
-          textAlign: "center",
-          backgroundColor: "#eee",
+          textAlign: 'center',
+          backgroundColor: '#eee',
           padding: 10,
           borderRadius: 50
         }}
@@ -204,55 +224,52 @@ class Accounts extends Component {
     </View>,
     <View
       style={{
-        height: "100%",
+        height: '100%',
         width: 47,
         // borderWidth: 1,
-        justifyContent: "center"
+        justifyContent: 'center'
       }}
     >
       <Ionicon
-        onPress={() => this.props.navigation.navigate("EditAccount")}
+        onPress={() => this.props.navigation.navigate('EditAccount')}
         name="md-trash"
         color="white"
         size={25}
         style={{
-          textAlign: "center",
+          textAlign: 'center',
           padding: 10,
           borderRadius: 50,
-          backgroundColor: "red"
+          backgroundColor: 'red'
         }}
       />
     </View>
   ];
 
   navigateToAccountDetails = ({ navigation } = this.props) =>
-    navigation.navigate("AccountDetails");
+    navigation.navigate('AccountDetails');
 
   render() {
     const { navigation } = this.props;
     return (
       <View
-        style={{ display: "flex", height: "100%", backgroundColor: "white" }}
+        style={{ display: 'flex', height: '100%', backgroundColor: 'white' }}
       >
         <StatusBar backgroundColor="blue" />
-        <View style={{ height: "15%" }}>
+        <View style={{ height: '15%' }}>
           <Header
             topHeader={this.topHeaderComponent}
             bottomHeader={this.bottomHeaderComponent}
           />
         </View>
-        <View style={{ backgroundColor: "#eee", display: "flex" }}>
+        <View style={{ backgroundColor: '#eee', display: 'flex' }}>
           <ScrollView
-            style={{ display: "flex", height: "85%", backgroundColor: "white" }}
+            style={{ display: 'flex', height: '85%', backgroundColor: 'white' }}
           >
             {this.cards.map((item, ind) => (
+              //(item.mode) => this.gotoAccount
               // <TouchableOpacity onPress={this.navigateToAccountDetails} key={Math.random()}>
               <Swipeable rightButtons={this.rightButtons} key={Math.random()}>
-                <TouchableOpacity
-                  onPress={() =>
-                    alert(`Taking you to ${item.accountName} account`)
-                  }
-                >
+                <TouchableOpacity onPress={() => this.gotoAccount(item.mode)}>
                   <AccountCard
                     onSwipeFromLeft={this.renderActions}
                     accountName={item.accountName}
@@ -264,7 +281,7 @@ class Accounts extends Component {
                     style={{
                       ...item.style,
                       height: 130,
-                      marginTop: ind === 0 ? "3%" : 0
+                      marginTop: ind === 0 ? '3%' : 0
                     }}
                   />
                 </TouchableOpacity>
