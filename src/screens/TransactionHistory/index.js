@@ -25,6 +25,7 @@ const {
 class TransactionHistory extends Component {
   state = {
     mode: 1,
+    toggleMore: false,
     showingDetails: undefined
   };
 
@@ -123,19 +124,28 @@ class TransactionHistory extends Component {
               }) => {
                 const { transactionStatus } = transaction;
                 return (
-                  <View
-                    key={Math.random()}
-                    style={{ paddingLeft: '5%', paddingRight: '5%' }}
-                  >
-                    <TransactionItem
-                      key={id}
-                      status={status}
-                      description={name}
-                      time={time}
-                      amount={amount}
-                      trimmed={true}
-                    />
-                  </View>
+                  <>
+                    <View
+                      key={Math.random()}
+                      style={{ paddingLeft: '5%', paddingRight: '5%' }}
+                    >
+                      <TransactionItem
+                        key={id}
+                        status={status}
+                        description={name}
+                        time={time}
+                        amount={amount}
+                        trimmed={true}
+                        toggleMoreTransaction={() => this.toggleItemDetails(id)}
+                      />
+                    </View>
+                    <View>
+                      {showingDetails === id ? (
+                        <TransactionDetail transaction={transaction} />
+                      ) : null}
+                    </View>
+                  </>
+
                   // <View key={id}>
                   //   <View style={{ paddingRight: '5%', paddingLeft: '5%' }}>
                   //     <AccountHolder

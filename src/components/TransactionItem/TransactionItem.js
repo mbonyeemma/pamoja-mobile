@@ -15,7 +15,8 @@ export default ({
   time,
   user = false,
   amount,
-  trimmed = false
+  trimmed = false,
+  toggleMoreTransaction
 }) => {
   const switchedStatus = _status => {
     let statusColor = '';
@@ -99,7 +100,7 @@ export default ({
         )}
       </View>
 
-      <View
+      <TouchableOpacity
         style={{
           flexDirection: 'row',
           height: '100%',
@@ -109,6 +110,7 @@ export default ({
           borderBottomColor: '#ddd',
           borderBottomWidth: 1
         }}
+        onPress={toggleMoreTransaction}
       >
         {!user && showMore ? (
           <View style={{ alignItems: 'flex-end', marginRight: '5%' }}>
@@ -147,17 +149,12 @@ export default ({
 
         <View>
           {!user ? (
-            <Icon
-              name="keyboard-arrow-right"
-              size={20}
-              color="#aaa"
-              onPress={() => alert(`${description} details coming soon`)}
-            />
+            <Icon name="keyboard-arrow-right" size={20} color="#aaa" />
           ) : (
             <Text />
           )}
         </View>
-      </View>
+      </TouchableOpacity>
     </View>
   );
 };
