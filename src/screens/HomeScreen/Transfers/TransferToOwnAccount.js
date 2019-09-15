@@ -34,7 +34,8 @@ export default ({ close }) => (
       flex: 1,
       backgroundColor: theme.colors.white,
       borderTopRightRadius: 20,
-      borderTopLeftRadius: 20
+      borderTopLeftRadius: 20,
+      marginTop: 10
     }}
   >
     <AccountListItem labelTitle={`From`} data={data} />
@@ -43,7 +44,8 @@ export default ({ close }) => (
       style={{
         flex: 3.5,
         borderTopWidth: 1,
-        borderTopColor: theme.colors.darkGray
+        borderTopColor: theme.colors.darkGray,
+        marginTop: 10
       }}
     >
       <ScrollView>

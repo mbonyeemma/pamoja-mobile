@@ -310,6 +310,19 @@ export default class Home extends Component {
           isModalShowing: true
         });
         break;
+      case "LoanApprove":
+        newProps = this.setState({
+          modalProps: {
+            height: "35%",
+            component: (
+              <LoanAmountField
+                onDone={() => this.setState({ isModalShowing: false })}
+              />
+            )
+          },
+          isModalShowing: true
+        });
+        break;
       case "Dstv":
         newProps = this.setState({
           modalProps: {
@@ -365,6 +378,23 @@ export default class Home extends Component {
               <LoanRequest
                 proceed={() =>
                   this.setState({}, () => this.renderModal("LoanRequest"))
+                }
+              />
+            )
+          },
+          isModalShowing: true,
+          title: "Loan Request",
+          showCloseButton: true
+        });
+        break;
+      case "LoanRequest":
+        newProps = this.setState({
+          modalProps: {
+            height: computedHeight,
+            component: (
+              <LoanPendingApprovals
+                approve={() =>
+                  this.setState({}, () => this.renderModal("LoanApprove"))
                 }
               />
             )
@@ -463,10 +493,10 @@ export default class Home extends Component {
             // marginTop: width > 320 ? "35%" : "32%",
             width: "100%",
             zIndex: 90,
-            top: width > 320 ? 120 : 95
+            top: width > 320 ? 150 : 95
           }}
         >
-          <ScrollableCards buttonTopHeight={height >= 720 ? 145 : 135} />
+          <ScrollableCards buttonTopHeight={height >= 720 ? 165 : 135} />
         </View>
 
         <ScrollView style={{ marginTop: width > 320 ? 90 : 100 }}>
@@ -477,7 +507,7 @@ export default class Home extends Component {
               borderColor: "red",
               flexDirection: "row",
               justifyContent: "center",
-              marginTop: height >= 320 ? 5 : 20,
+              marginTop: height >= 320 ? 20 : 20,
               borderBottomColor: "#ccc",
               borderBottomWidth: 1
             }}
@@ -566,7 +596,7 @@ export default class Home extends Component {
               >
                 <Text
                   allowFontScaling
-                  style={{ color: "rgb(0,58,238)", fontSize: 16 }}
+                  style={{ color: "rgb(0,58,238)", fontSize: 18 }}
                 >
                   View All
                 </Text>

@@ -6,10 +6,7 @@ const { width } = Dimensions.get('window');
 
 export default class PagedScroll extends React.Component {
   state = {
-    counter: 0,
-    // offset: 0
-    // forward: true,
-    // backwards: false
+    counter: 0
   };
 
   scroll = (e) => {
@@ -39,7 +36,7 @@ export default class PagedScroll extends React.Component {
     } = this.props;
     const { counter } = this.state;
     return (
-      <>
+      <View>
         <View
           style={{
             height: width > 320 ? 150 : 140,
@@ -125,7 +122,7 @@ export default class PagedScroll extends React.Component {
             ))}
           </View>
         ) : null}
-      </>
+      </View>
     );
   }
 }

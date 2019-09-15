@@ -43,7 +43,7 @@ export default ({ styles, clicked }) => (
         />
         <Text
           allowFontScaling
-          style={{ marginTop: 5, color: '#fff', fontSize: 10 }}
+          style={{ marginTop: 5, color: '#fff', fontSize: 9 }}
         >
           {item.title}
         </Text>

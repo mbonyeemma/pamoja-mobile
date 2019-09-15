@@ -5,15 +5,15 @@ module.exports = {
     jest: true
   },
   rules: {
-    "no-use-before-define": "off",
+    // "no-use-before-define": "off",
     "react/jsx-filename-extension": "off",
-    "react/prefer-stateless-function": "off",
+    // "react/prefer-stateless-function": "off",
     "object-curly-newline": "off",
     "react/prop-types": "off",
     "comma-dangle": "off",
-    "quotes": [2, "single"],
-    "max-len": "off",
-    "no-return-assign": "off"
+    // quotes: [2, "single", "avoid-escape"]
+    // "max-len": "off",
+    // "no-return-assign": "off"
   },
   globals: {
     fetch: false

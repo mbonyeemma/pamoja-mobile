@@ -1,17 +1,108 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import styles from './SignInStyles';
-import PhoneAndPassword from '../../components/PhoneAndPassword/PhoneAndPassword';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+// import styles from './SignInStyles';
+import FormField from '../../components/FormField/FormField';
 
-export default ({ navigate }) => (
-  <View style={styles.signIncontainer}>
-    <PhoneAndPassword />
-    <View>
-      <TouchableOpacity style={styles.signInTextContainer} onPress={navigate}>
-        <Text allowFontScaling style={{ fontSize: 13, color: 'white' }}>Sign In</Text>
+export default ({ login, phoneNumber, password, textChanged, verify, rightIconClicked, visible
+}) => (
+  <View style={{}}>
+    <View
+      style={{
+        flexDirection: 'row',
+        alignItems: 'center',
+        // borderWidth: 1,
+        width: '90%',
+        marginTop: 30,
+        alignSelf: 'center',
+      }}
+    >
+      <Icon name="phone" size={25} color="#aaa" style={{ marginRight: 10 }} />
+      <FormField
+        placeholder="7888888888"
+        mobile
+        header="Phone Number"
+        textChanged={e => textChanged(e, 'phoneNumber')}
+        value={phoneNumber}
+      />
+    </View>
+
+    <View
+      style={{
+        flexDirection: 'row',
+        alignItems: 'center',
+        // borderWidth: 1,
+        width: '90%',
+        marginTop: 10,
+        alignSelf: 'center',
+      }}
+    >
+      <Icon
+        name="lock"
+        size={25}
+        color="#aaa"
+        style={{ alignSelf: 'center', marginRight: 10 }}
+      />
+      <FormField
+        rightIcon
+        rightIconName={visible ? 'visibility' : 'visibility-off'}
+        placeholder="Password"
+        value={password}
+        textChanged={e => textChanged(e, 'password')}
+        rightIconClicked={rightIconClicked}
+        secureTextEntry={visible}
+      />
+    </View>
+
+    <View
+      style={{
+        width: '100%',
+        // borderWidth: 1,
+        borderColor: 'red',
+        height: 50,
+        alignItems: 'center',
+        marginTop: 40,
+      }}
+    >
+      <TouchableOpacity
+        onPress={login}
+        style={{
+          height: '100%',
+          width: '50%',
+          backgroundColor: 'blue',
+          borderRadius: 30,
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Text allowFontScaling style={{ fontSize: 20, color: 'white' }}>
+          Sign In
+        </Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.forgotPwdTextContainer} onPress={null}>
-        <Text allowFontScaling style={{ fontSize: 11, color: 'rgb(0, 58, 238)' }}>Forgot Password?</Text>
+    </View>
+
+    <View
+      style={{
+        width: '100%',
+        // borderWidth: 1,
+        // borderColor: "red",
+        height: 60,
+        alignItems: 'center',
+        marginTop: 30,
+      }}
+    >
+      <TouchableOpacity
+        onPress={_ => alert('forgot your password?')}
+        style={{
+          height: '100%',
+          width: '50%',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Text allowFontScaling style={{ fontSize: 15, color: 'blue' }}>
+          Forgot Password?
+        </Text>
       </TouchableOpacity>
     </View>
   </View>

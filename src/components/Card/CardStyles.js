@@ -35,7 +35,7 @@ export default StyleSheet.create({
     paddingTop: '10%'
   },
   actNameText: {
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
     color: 'white',
     fontSize: 12
   },
@@ -81,7 +81,7 @@ export default StyleSheet.create({
     height: 20
   },
   currency: {
-    fontSize: 9,
+    fontSize: 10,
     color: 'rgba(255,255,255,.9)',
     alignSelf: 'flex-end',
     backgroundColor: 'rgb(251,188,5)',
@@ -93,7 +93,7 @@ export default StyleSheet.create({
   },
   amount: {
     fontSize: 20,
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
     color: 'rgba(255,255,255,.9)',
     alignSelf: 'flex-end'
   },

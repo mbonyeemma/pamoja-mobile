@@ -31,7 +31,7 @@ class SelectableList extends React.Component {
     return (
       <View>
         <View style={{ flexDirection: "row", alignItems: "space-between" }}>
-          <View style={{ width: "50%", borderColor: "orange" }}>
+          <View style={{ width: "70%", borderColor: "orange" }}>
             <Text
               allowFontScaling
               style={{ fontSize: 11 }}
@@ -41,7 +41,7 @@ class SelectableList extends React.Component {
           </View>
           <View
             style={{
-              width: "50%",
+              width: "30%",
               borderColor: "green",
               alignItems: "flex-end"
             }}

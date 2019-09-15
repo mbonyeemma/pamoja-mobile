@@ -1,8 +1,10 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import ScrollableCards from '../ScrollableCards/ScrollableCards';
 import theme from '../../constants/theme';
+
+const { width } = Dimensions.get('screen')
 
 export default ({ labelTitle = 'From', data = [], style = {} }) => (
   <View
@@ -52,6 +54,6 @@ export default ({ labelTitle = 'From', data = [], style = {} }) => (
         Select Account
       </Text>
     </View>
-    <ScrollableCards items={data} />
+    <ScrollableCards items={data} buttonTopHeight={width > 320 ? 195 : 140} />
   </View>
 );

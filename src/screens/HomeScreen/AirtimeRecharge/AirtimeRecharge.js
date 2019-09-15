@@ -48,7 +48,7 @@ const AirtimeRecharge = ({
           />
           <Text
             allowFontScaling
-            style={{ fontSize: 15, color: 'rgba(0,0,0,.3)', marginLeft: '1%' }}
+            style={{ fontSize: 15, color: 'rgba(0,0,0,.3)', marginRight: 15 }}
           >
             Pre-Paid
           </Text>
@@ -71,7 +71,7 @@ const AirtimeRecharge = ({
             allowFontScaling
             style={{ fontSize: 15, color: 'rgba(0,0,0,.3)', marginLeft: '1%' }}
           >
-            Pre-Paid
+            Post-Paid
           </Text>
         </TouchableOpacity>
       </View>
@@ -80,6 +80,8 @@ const AirtimeRecharge = ({
         placeholder="MTN"
         textChanged={textChanged}
         canEdit={false}
+        rightIcon
+        rightIconName="keyboard-arrow-down"
       />
       <FormField
         mobile
@@ -101,7 +103,7 @@ const AirtimeRecharge = ({
           justifyContent: 'flex-start',
           alignSelf: 'center',
           // borderWidth: 1,
-          top: 5,
+          top: 15,
           paddingBottom: '1%'
         }}
       >
@@ -112,13 +114,15 @@ const AirtimeRecharge = ({
           onPress={renewSubHandler}
           style={{ color: 'rgb(34, 50, 176)' }}
         />
-        <View style={{ height: '100%', paddingLeft: '3%' }}>
+        <View style={{ height: '100%', paddingLeft: '3%', textAlign: 'flex-start' }}>
           <Text
             allowFontScaling
             style={{
               fontSize: 17,
-              marginTop: '2%',
-              // top: 0,
+              // marginTop: '2%',
+              top: -3,
+              borderWidth: 1,
+              
               flexGrow: 1,
               color: 'rgb(0, 58, 238)'
             }}
@@ -129,7 +133,8 @@ const AirtimeRecharge = ({
             allowFontScaling
             style={{
               fontSize: 12,
-              marginTop: '-3%',
+              // marginTop: '-3%',
+              top: -3,
               color: 'rgba(35, 31,32, 0.74)'
             }}
           >
@@ -157,7 +162,8 @@ const AirtimeRecharge = ({
           // borderWidth: 1,
           width: '90%',
           alignSelf: 'center',
-          marginTop: '1%'
+          // marginTop: '1%'
+          top: 10
           // position: 'absolute',
           // zIndex: 50
         }}
@@ -168,8 +174,8 @@ const AirtimeRecharge = ({
         </Text>
       </View>
 
-      <View style={{ width: '100%', height: 130 }}>
-        <ScrollableCards buttonTopHeight={height >= 720 ? 140 : 130} />
+      <View style={{ width: '100%', height: 130, top: 10, borderWidth: 1 }}>
+        <ScrollableCards buttonTopHeight={height >= 720 ? 145 : 135} />
       </View>
 
       <View
@@ -177,11 +183,11 @@ const AirtimeRecharge = ({
           // borderWidth: 1,
           alignItems: 'center',
           justifyContent: 'flex-start',
-          top: height >= 720 ? 25 : 15,
+          top: height >= 720 ? 45 : 35,
           // marginBottom: 0,
-          height: height >= 720 ? 90 : 90
+          height: 100,
           // borderWidth: 1
-          // top: height >= 720 ? 5 : 15
+          // top: 10
         }}
       >
         <TouchableOpacity

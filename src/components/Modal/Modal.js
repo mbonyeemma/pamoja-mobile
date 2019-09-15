@@ -32,8 +32,11 @@ const modal = ({
         onBackButtonPress={close}
         onBackdropPress={close}
         backdropOpacity={backdropOpacity}
-        animationInTiming={100}
-        animationOutTiming={100}
+        // animationInTiming={100}
+        animationIn="fadeInUp"
+        animationOut="fadeOutDown"
+        // animationOutTiming={350}
+        backdropTransitionOutTiming={0}
       >
         <View style={{ flex: 1, justifyContent: 'flex-end' }}>
           {fullWidth ? (

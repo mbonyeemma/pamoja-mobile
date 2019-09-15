@@ -42,7 +42,8 @@ export default ({ submitTransfer }) => (
       style={{
         flex: 3.5,
         borderTopWidth: 1,
-        borderTopColor: theme.colors.darkGray
+        borderTopColor: theme.colors.darkGray,
+        marginTop: 10
       }}
     >
       <ScrollView>
@@ -50,7 +51,7 @@ export default ({ submitTransfer }) => (
           style={{
             paddingLeft: '5%',
             paddingRight: '5%',
-            paddingTop: '5%'
+            paddingTop: '5%',
           }}
         >
           <Text

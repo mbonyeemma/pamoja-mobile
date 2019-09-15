@@ -7,29 +7,29 @@ import EditAccountScreen from './EditAccount';
 import CreateAccount from './CreateAccount';
 import Verification from './PhoneVerification';
 import AccountDetails from '../screens/AccountDetails/JointAccount';
-
+// import Swipe from "./xx";
 
 const navigator = createStackNavigator(
   {
-    BottomMenu: BottomMenuScreen,
-    Splash: SplashScreen,
+    // Swipe,
     Guide: GuideScreens,
-    AccountDetails,
     SignIn: SignInNavigator,
-    EditAccount: EditAccountScreen,
+    Splash: SplashScreen,
     AccountDetails,
+    EditAccount: EditAccountScreen,
+    // AccountDetails,
     CreateAccount,
     Verification,
-    AccountDetails
+    // AccountDetails,
+    BottomMenu: BottomMenuScreen,
   },
   {
     defaultNavigationOptions: {
       // screen: '',
-      header: null
-    }
+      header: null,
+    },
     // initialRouteName: 'Splash'
-  }
+  },
 );
 
 export default createAppContainer(navigator);
-

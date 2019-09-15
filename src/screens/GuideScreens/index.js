@@ -45,7 +45,7 @@ class GuideScreens extends Component {
 
   skipHandler = () => {
     const { navigation } = this.props;
-    navigation.navigate('SignIn');
+    navigation.navigate('SignIn', { component: 'register' });
   };
 
   render() {

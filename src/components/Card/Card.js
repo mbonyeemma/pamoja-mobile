@@ -127,7 +127,7 @@ const card = ({
               </Text>
               <View style={styles.currencyAmountContainer}>
                 <Text allowFontScaling style={styles.currency}>
-                  ugx
+                  Ugx
 {" "}
                 </Text>
                 <Text

@@ -19,6 +19,7 @@ import Swipeable from "react-native-swipeable";
 class Accounts extends Component {
   constructor(props) {
     super(props);
+    this.swipeable = null;
   }
 
   width = Dimensions.get("screen").width;
@@ -146,7 +147,7 @@ class Accounts extends Component {
             name="add"
             size={this.width > 320 ? 25 : 15}
             color="white"
-            style={{ padding: 5 }}
+            // style={{ padding: 5 }}
           />
         </TouchableOpacity>
       </View>
@@ -247,11 +248,9 @@ class Accounts extends Component {
           >
             {this.cards.map((item, ind) => (
               // <TouchableOpacity onPress={this.navigateToAccountDetails} key={Math.random()}>
-              <Swipeable rightButtons={this.rightButtons} key={Math.random()}>
+              <Swipeable rightButtons={this.rightButtons} key={Math.random()} onRef={ref => this.swipeable = ref}>
                 <TouchableOpacity
-                  onPress={() =>
-                    alert(`Taking you to ${item.accountName} account`)
-                  }
+                  onPress={() => navigation.navigate('AccountDetails')}
                 >
                   <AccountCard
                     onSwipeFromLeft={this.renderActions}
@@ -264,7 +263,7 @@ class Accounts extends Component {
                     style={{
                       ...item.style,
                       height: 130,
-                      marginTop: ind === 0 ? "3%" : 0
+                      // marginTop: ind === 0 ? "3%" : 0
                     }}
                   />
                 </TouchableOpacity>
