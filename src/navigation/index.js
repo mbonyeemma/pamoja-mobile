@@ -12,14 +12,14 @@ import AccountDetails from '../screens/AccountDetails/JointAccount';
 const navigator = createStackNavigator(
   {
     // Swipe,
-    Guide: GuideScreens,
-    SignIn: SignInNavigator,
     Splash: SplashScreen,
+    SignIn: SignInNavigator,
+    Verification,
+    Guide: GuideScreens,
     AccountDetails,
     EditAccount: EditAccountScreen,
     // AccountDetails,
     CreateAccount,
-    Verification,
     // AccountDetails,
     BottomMenu: BottomMenuScreen,
   },

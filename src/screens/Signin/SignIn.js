@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 // import styles from './SignInStyles';
 import FormField from '../../components/FormField/FormField';
 
-export default ({ login, phoneNumber, password, textChanged, verify, rightIconClicked, visible
+export default ({ login, phoneNumber, password, textChanged, verify, rightIconClicked, visible, isLoading
 }) => (
   <View style={{}}>
     <View
@@ -63,7 +63,8 @@ export default ({ login, phoneNumber, password, textChanged, verify, rightIconCl
         alignItems: 'center',
         marginTop: 40,
       }}
-    >
+      >
+        {isLoading ? <Text>Logging in, Please wait</Text> : null}
       <TouchableOpacity
         onPress={login}
         style={{
