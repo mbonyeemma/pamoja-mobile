@@ -21,13 +21,15 @@ export default class SignInReg extends Component {
 
 	componentDidMount () {
 		const { navigation } = this.props;
-		const component = navigation.getParam('component') || 'register';
-		return this.setState({ mode: component });
+		const component = navigation.getParam('component') || 'signin';
+		console.log('changing state', component);
+		this.signInRegistrationHandler(component)
+		// this.setState({ mode: component });
 	}
 
 	login = () => {
 		let { password, phoneNumber: phone_number } = this.state;
-		this.setState({loading: true})
+		this.setState({loading: true, password: '', phoneNumber: ''})
 		const { navigation } = this.props;
 		// password = password.trim();
 		// phoneNumber = phoneNumber.trim();
@@ -65,9 +67,9 @@ export default class SignInReg extends Component {
 		const { email, password, fname: first_name, lname: last_name, phoneNumber: phone_number, termsChecked } = this.state;
 		const { navigation } = this.props;
 
-		if (email === '' || last_name === '' || first_name === '' || password === '' || phone_number === '') {
+		if (first_name === '' || password === '' || phone_number === '') {
 			this.setState({ loading: false });
-			return Alert.alert('Fill in all the fields');
+			return Alert.alert('Error','First name, phone number and password are required fields');
 		}
 
 		if (!termsChecked) {
@@ -92,10 +94,10 @@ export default class SignInReg extends Component {
 			})
 			.then((res) => {
 				this.setState({
-					fname: '',
+					// fname: '',
 					lname: '',
-					phoneNumber: '',
-					password: '',
+					// phoneNumber: '',
+					// password: '',
 					email: '',
 					loading: false
 				});
@@ -112,7 +114,7 @@ export default class SignInReg extends Component {
 			})
 			.then((res) => {
 				console.log('response from registration', res);
-				this.setState({ loading: false });
+				this.setState({ loading: false, mode: 'signin' });
 
 				return navigation.navigate('Verification', { number: '0783140303' });
 			})

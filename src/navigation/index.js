@@ -13,8 +13,8 @@ const navigator = createStackNavigator(
   {
     // Swipe,
     Splash: SplashScreen,
-    SignIn: SignInNavigator,
     Verification,
+    SignIn: SignInNavigator,
     Guide: GuideScreens,
     AccountDetails,
     EditAccount: EditAccountScreen,

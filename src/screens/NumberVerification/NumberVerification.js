@@ -12,8 +12,8 @@ class NumberVerification extends Component {
 		fourth: '',
 		timer: 10,
 		// verify: true,
-    number: '',
-    loading: false
+		number: '',
+		loading: false
 	};
 
 	componentDidMount () {
@@ -21,22 +21,24 @@ class NumberVerification extends Component {
 		this.setState({ number: navigation.getParam('number') });
 	}
 
-  verifyNumber = () => {
-    this.setState({loading: true})
+	verifyNumber = () => {
+		this.setState({ loading: true });
 		const { first, second, third, fourth, number: phone_number } = this.state;
 		const { navigation } = this.props;
-		if (!first || !second || !third || !fourth) return Alert.alert('Error', 'Fill in all the fields');
+		// if (!first || !second || !third || !fourth) return Alert.alert('Error', 'Fill in all the fields');
 		const verificationObject = JSON.stringify({ token: `${first}${second}${third}${fourth}`, phone_number });
-		// console.log('verificationNumber', verificationNumber);
+		console.log('verificationNumber', verificationObject);
 
 		axios
-			.post('https://pamoja-251814.appspot.com/verify', verificationObject, {headers: {'Content-Type': 'application/json', 'Accept':'application/json', 'Access-Control-Allow-Origin': '*'}})
-      .then(() => {
-        this.setState({ loading: false });
-        navigation.navigate('SignIn', { component: 'signin' })
-      })
-      .catch((error) => {
-        this.setState({ loading: false });        
+			.post('https://pamoja-251814.appspot.com/verify', verificationObject, {
+				headers: { 'Content-Type': 'application/json', Accept: 'application/json', 'Access-Control-Allow-Origin': '*' }
+			})
+			.then(() => {
+				this.setState({ loading: false });
+				navigation.navigate('SignIn', { component: 'signin' });
+			})
+			.catch((error) => {
+				this.setState({ loading: false });
 				console.log('Error in verifying number', error.response);
 				return Alert.alert('Error', error.response.data.message);
 			});
@@ -71,33 +73,33 @@ class NumberVerification extends Component {
 	};
 
 	backSpaceHandler = (event, input) => {
-		const { second, third, fourth } = this.state;
-		switch (input) {
-			case 'second':
-				this.setState({ second: '' });
-				if (event.nativeEvent.key === 'Backspace' && second === '') {
-					return this.first.focus();
-				}
-				break;
-			case 'third':
-				this.setState({ third: '' });
-				if (event.nativeEvent.key === 'Backspace' && third === '') {
-					return this.second.focus();
-				}
-				break;
-			case 'fourth':
-				this.setState({ fourth: '' });
-				if (event.nativeEvent.key === 'Backspace' && fourth === '') {
-					return this.third.focus();
-				}
-				break;
-			default:
-				return this.first.focus();
-		}
+		// const { second, third, fourth } = this.state;
+		// switch (input) {
+		// 	case 'second':
+		// 		this.setState({ second: '' });
+		// 		if (event.nativeEvent.key === 'Backspace' && second === '') {
+		// 			return this.first.focus();
+		// 		}
+		// 		break;
+		// 	case 'third':
+		// 		this.setState({ third: '' });
+		// 		if (event.nativeEvent.key === 'Backspace' && third === '') {
+		// 			return this.second.focus();
+		// 		}
+		// 		break;
+		// 	case 'fourth':
+		// 		this.setState({ fourth: '' });
+		// 		if (event.nativeEvent.key === 'Backspace' && fourth === '') {
+		// 			return this.third.focus();
+		// 		}
+		// 		break;
+		// 	default:
+		// 		return this.first.focus();
+		// }
 	};
 
-  resendCode = () => {
-    this.setState({loading: true})
+	resendCode = () => {
+		this.setState({ loading: true });
 		const { number } = this.state;
 		const codeObject = {
 			phone_number: number,
@@ -106,16 +108,18 @@ class NumberVerification extends Component {
 		};
 
 		return axios
-			.post('https://pamoja-251814.appspot.com/send_code', codeObject, {header:{'Content-Type':'application/json', 'Access-Control-Allow-Origin': '*'}})
-      .then((res) => {
-        console.log('response from verification', res.data)
-        this.setState({ loading: false });
-        return Alert.alert('Success', 'A code has been resent to your phone number')
-      })
-      .catch(() => {
-        this.setState({ loading: false });        
-        return Alert.alert('Error', 'Make Sure you have the right code and number is registered.')
-      });
+			.post('https://pamoja-251814.appspot.com/send_code', codeObject, {
+				header: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+			})
+			.then((res) => {
+				console.log('response from verification', res.data);
+				this.setState({ loading: false });
+				return Alert.alert('Success', 'A code has been resent to your phone number');
+			})
+			.catch(() => {
+				this.setState({ loading: false });
+				return Alert.alert('Error', 'Make Sure you have the right code and number is registered.');
+			});
 	};
 
 	toggleVerifyNow = () => {
@@ -130,15 +134,19 @@ class NumberVerification extends Component {
 
 	render () {
 		const { timer, number, loading } = this.state;
+		console.log('state', this.state);
 		return (
 			<View style={Styles.container}>
 				<View>
 					<Text style={{ fontSize: 23, fontWeight: 'bold' }}> Verify you mobile </Text>
 				</View>
 				<Text allowFontScaling style={{ fontSize: 15, textAlign: 'center' }}>
+					{/* <TouchableOpacity > */}
 					{`We have sent an SMS with the OTP code\n to ${number}`}
-					<Text style={{ color: 'blue' }}> Wrong number?</Text>
+						<Text style={{ color: 'blue' }} onPress={() => this.props.navigation.navigate('SignIn', {component: 'register'})}> Wrong number?</Text>
+					{/* </TouchableOpacity> */}
 				</Text>
+        
 
 				<View style={{ flexDirection: 'row' }}>
 					<TextInput
@@ -207,13 +215,12 @@ class NumberVerification extends Component {
 				</View>
 
 				{/* RESEND */}
-        <View style={{marginBottom: 10}}>
-          
+				<View style={{ marginBottom: 10 }}>
 					<TouchableOpacity onPress={this.resendCode}>
 						<Text style={{ color: 'blue', fontSize: 15 }}>Resend</Text>
 					</TouchableOpacity>
 				</View>
-        {loading ? <Text>Sending code, please wait...</Text> : null}
+				{loading ? <Text>Sending code, please wait...</Text> : null}
 
 				{/* VERIFY BUTTON */}
 				<TouchableOpacity onPress={this.verifyNumber}>
@@ -234,7 +241,7 @@ class NumberVerification extends Component {
 							shadowRadius: 10,
 							elevation: 10
 						}}
-          >
+					>
 						<Text style={{ color: 'white', fontSize: 18 }}>Verify Now</Text>
 					</View>
 				</TouchableOpacity>
