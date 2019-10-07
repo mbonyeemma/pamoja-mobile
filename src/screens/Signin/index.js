@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, TouchableOpacity, Image, ScrollView, Alert } from 'react-native';
+import { Text, View, TouchableOpacity, Image, ScrollView, ToastAndroid, Alert } from 'react-native';
 import axios from 'axios';
 import styles from './SignInStyles';
 import logo from '../../../assets/logo.png';
@@ -23,13 +23,13 @@ export default class SignInReg extends Component {
 		const { navigation } = this.props;
 		const component = navigation.getParam('component') || 'signin';
 		console.log('changing state', component);
-		this.signInRegistrationHandler(component)
+		this.signInRegistrationHandler(component);
 		// this.setState({ mode: component });
 	}
 
 	login = () => {
 		let { password, phoneNumber: phone_number } = this.state;
-		this.setState({loading: true, password: '', phoneNumber: ''})
+		this.setState({ loading: true, password: '', phoneNumber: '' });
 		const { navigation } = this.props;
 		// password = password.trim();
 		// phoneNumber = phoneNumber.trim();
@@ -38,8 +38,8 @@ export default class SignInReg extends Component {
 		// 	return Alert.alert('Error', 'Fill in both Fields');
 		// }
 		const object = JSON.stringify({
-      password,
-      phone_number
+			password,
+			phone_number
 			// phone_number: `0${phoneNumber}`
 		});
 
@@ -57,19 +57,26 @@ export default class SignInReg extends Component {
 			})
 			.catch((err) => {
 				this.setState({ loading: false });
-        console.log('login error', err.response);
-        return Alert.alert('Error', 'Worng phone number or password, Try again!');
-      });
+				console.log('login error', err.response);
+				return Alert.alert('Error', 'Worng phone number or password, Try again!');
+			});
 	};
 
 	register = () => {
 		this.setState({ loading: true });
-		const { email, password, fname: first_name, lname: last_name, phoneNumber: phone_number, termsChecked } = this.state;
+		const {
+			email,
+			password,
+			fname: first_name,
+			lname: last_name,
+			phoneNumber: phone_number,
+			termsChecked
+		} = this.state;
 		const { navigation } = this.props;
 
 		if (first_name === '' || password === '' || phone_number === '') {
 			this.setState({ loading: false });
-			return Alert.alert('Error','First name, phone number and password are required fields');
+			return Alert.alert('Error', 'First name, phone number and password are required fields');
 		}
 
 		if (!termsChecked) {
@@ -131,6 +138,37 @@ export default class SignInReg extends Component {
 
 	signInRegistrationHandler = (mode) => this.setState({ mode });
 
+	resetPasswordHandler = () => {
+		this.setState({ loading: true });
+		const { phoneNumber: phone_number } = this.state;
+		const { navigation } = this.props;
+		if (phone_number === '') {
+			this.setState({ loading: false });
+			return ToastAndroid.show('Please enter phone number to proceed', ToastAndroid.SHORT);
+		}
+
+		const codeObject = JSON.stringify({
+			phone_number,
+			country_code: '256',
+			method: 'sms',
+			confirm_password: 'true'
+		});
+
+		return axios
+			.post('https://pamoja-251814.appspot.com/send_code', codeObject, {
+				headers: { 'Content-Type': 'application/json' }
+			})
+			.then((res) => {
+				this.setState({ loading: true });
+				console.log('Response after resending code', res);
+				return navigation.navigate('ResetPassword', { number: phone_number });
+			})
+			.catch((err) => {
+				this.setState({ loading: true });
+				Alert.alert('Error', err.response.data.message);
+			});
+	};
+
 	render () {
 		const { mode, password, phoneNumber, fname, lname, email, passwordVisible, loading, termsChecked } = this.state;
 		const { navigation } = this.props;
@@ -139,6 +177,7 @@ export default class SignInReg extends Component {
 		const signOrRegisterComponent =
 			mode === 'signin' ? (
 				<SignInComponent
+					navig={this.resetPasswordHandler}
 					visible={passwordVisible}
 					isLoading={loading}
 					active={mode}

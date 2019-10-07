@@ -7,14 +7,18 @@ import EditAccountScreen from './EditAccount';
 import CreateAccount from './CreateAccount';
 import Verification from './PhoneVerification';
 import AccountDetails from '../screens/AccountDetails/JointAccount';
+import ResetPassword from '../screens/ResetPassword/ResetPassword';
 // import Swipe from "./xx";
 
 const navigator = createStackNavigator(
   {
     // Swipe,
+    SignIn: SignInNavigator,
+    ResetPassword: {
+      screen: ResetPassword
+    },
     Splash: SplashScreen,
     Verification,
-    SignIn: SignInNavigator,
     Guide: GuideScreens,
     AccountDetails,
     EditAccount: EditAccountScreen,

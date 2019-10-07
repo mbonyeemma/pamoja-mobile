@@ -3,8 +3,9 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 // import styles from './SignInStyles';
 import FormField from '../../components/FormField/FormField';
+import navigation from '../../navigation';
 
-export default ({ login, phoneNumber, password, textChanged, verify, rightIconClicked, visible, isLoading
+export default ({ login, phoneNumber, password, textChanged, verify, rightIconClicked, visible, isLoading, navig
 }) => (
   <View style={{}}>
     <View
@@ -93,7 +94,7 @@ export default ({ login, phoneNumber, password, textChanged, verify, rightIconCl
       }}
     >
       <TouchableOpacity
-        onPress={_ => alert('forgot your password?')}
+        onPress={() => navig()}
         style={{
           height: '100%',
           width: '50%',
